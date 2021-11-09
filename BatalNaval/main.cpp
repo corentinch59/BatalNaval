@@ -35,11 +35,11 @@ int main()
     circle.setFillColor(sf::Color::Red); // Appel de méthode qui travaille sur "circle"
     sf::CircleShape circle2; // Déclaration de "circle" (sans affectation)
     circle2.setRadius(100.0f);
-    circle2.setPosition(800.0f, 100.0f);
+    circle2.setPosition(600.0f, 100.0f);
     circle2.setFillColor(sf::Color::Blue);
 
     sf::View view;//(sf::Vector2f(350.f, 300.f), sf::Vector2f(300.f, 200.f));
-    view.setCenter(sf::Vector2f(400.f, 300.f));
+    view.setCenter(sf::Vector2f(200.0f, 150.f));
     view.setSize(sf::Vector2f(400.0f , 300.f));
 
     window.setView(view);
@@ -51,13 +51,15 @@ int main()
 
     float movingTime = 3.0f;
     float ratio = 0.0f;
-    float elsapsedTime = 0.0f;
+    float elapsedTime = 0.0f;
 
 
     sf::Vector2f posBatalOne = sf::Vector2f(200.0f, 150.0f);
     sf::Vector2f posBatalTwo = sf::Vector2f(700.0f, 150.0f);
-    sf::Vector2f velocity;
+    sf::Vector2f velocity = posBatalOne;
     sf::Vector2f target;
+    sf::Vector2f test;
+    
 
     // Game loop
     while (window.isOpen()) {
@@ -65,11 +67,25 @@ int main()
 
         float deltaTime = clock.getElapsedTime().asSeconds();
         
+        if (elapsedTime <= movingTime && movingTheCam)
+        {
+            elapsedTime = deltaTime;
+            ratio = elapsedTime / movingTime;
 
+            sf::Vector2f oldVelo = velocity;
+
+            velocity = Lerp(test, target, ratio);
+
+            sf::Vector2f newVelo = velocity;
+
+            view.move(newVelo - oldVelo);
+            window.setView(view);
+        }
+        
 
         while (window.pollEvent(event)) {
-            // Process any input event here
 
+            // Process any input event here
             switch (event.type) {
 
             case sf::Event::Closed:
@@ -81,17 +97,19 @@ int main()
                 {
                     if (goingLeft)
                     {
-                        //view.move(10.0f, 0.0f);
                         target = posBatalTwo;
+                        test = view.getCenter();
                         goingLeft = false;
                     }
                     else {
-                        //view.move(-10.0f, 0.0f);
                         target = posBatalOne;
-
+                        test = view.getCenter();
                         goingLeft = true;
                     }
-                    
+
+                    movingTheCam = true;
+                    elapsedTime = 0.0f;
+                    clock.restart();
                 }
 
             default: break;
@@ -100,6 +118,7 @@ int main()
         window.clear();
         // Whatever I want to draw goes here
         window.draw(circle);
+        window.draw(circle2);
 
         window.display();
     }
