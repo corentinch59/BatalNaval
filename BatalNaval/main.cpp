@@ -2,16 +2,20 @@
 #include <SFML/Graphics.hpp>
 #include "Graphismes.h"
 
+void DisplayGameLoop();
+
 int main()
 {
+    //DisplayGameLoop();
+    Graphismes();
+}
 
+void DisplayGameLoop()
+{
     sf::RenderWindow window(sf::VideoMode(800, 600), "ChronoSpacer");
     // Initialise everything below
 
-    sf::CircleShape circle; // D�claration de "circle" (sans affectation)
-    circle.setRadius(100.0f);
-    circle.setPosition(100.0f, 100.0f);
-    circle.setFillColor(sf::Color::Red); // Appel de m�thode qui travaille sur "circle"
+
 
 
     // Game loop
@@ -37,13 +41,9 @@ int main()
         }
         window.clear();
         // Whatever I want to draw goes here
-        window.draw(circle);
 
         window.display();
     }
 
-
-
-    Graphismes();
 }
 
