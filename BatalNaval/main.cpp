@@ -1,27 +1,6 @@
-
 #include <iostream>
 #include <SFML/Graphics.hpp>
 #include "Math.h"
-
-
-sf::Vector2f testMonving(float deltaTime, sf::Vector2f target) {
-
-    float movingTime = 3.0f;
-    float ratio = 0.0f;
-    float elsapsedTime = 0.0f;
-
-    sf::Vector2f velocity;
-
-    while (elsapsedTime <= movingTime) {
-
-        elsapsedTime += deltaTime;
-        ratio = movingTime / elsapsedTime;
-
-        velocity = Lerp(velocity, target, ratio);
-    }
-
-    return velocity;
-}
 
 int main()
 {
@@ -58,8 +37,7 @@ int main()
     sf::Vector2f posBatalTwo = sf::Vector2f(700.0f, 150.0f);
     sf::Vector2f velocity = posBatalOne;
     sf::Vector2f target;
-    sf::Vector2f test;
-    
+    sf::Vector2f CameraPos;
 
     // Game loop
     while (window.isOpen()) {
@@ -74,7 +52,7 @@ int main()
 
             sf::Vector2f oldVelo = velocity;
 
-            velocity = Lerp(test, target, ratio);
+            velocity = Lerp(CameraPos, target, ratio);
 
             sf::Vector2f newVelo = velocity;
 
@@ -98,12 +76,12 @@ int main()
                     if (goingLeft)
                     {
                         target = posBatalTwo;
-                        test = view.getCenter();
+                        CameraPos = view.getCenter();
                         goingLeft = false;
                     }
                     else {
                         target = posBatalOne;
-                        test = view.getCenter();
+                        CameraPos = view.getCenter();
                         goingLeft = true;
                     }
 
