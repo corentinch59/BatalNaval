@@ -11,4 +11,6 @@ struct Batal {
 	sf::CircleShape sail;
 };
 
-Batal createBatal(float x, float y);
+Batal CreateBatal(float x, float y);
+
+void DrawBatal(Batal& batal, sf::RenderWindow& window);
