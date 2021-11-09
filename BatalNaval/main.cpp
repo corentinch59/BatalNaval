@@ -5,11 +5,13 @@
 
 int main()
 {
+    sf::ContextSettings settings;
+    settings.antialiasingLevel = 8;
 
-    sf::RenderWindow window(sf::VideoMode(800, 600), "ChronoSpacer");
+    sf::RenderWindow window(sf::VideoMode(800, 600), "ChronoSpacer", sf::Style::Default, settings);
     // Initialise everything below
-
-    createBatal(100, 100);
+    Batal player1 = CreateBatal(100, 100, 1);
+    Batal player2 = CreateBatal(400, 100, 1.5);
 
     // Game loop
     while (window.isOpen()) {
@@ -33,8 +35,9 @@ int main()
             }
         }
         window.clear();
-        // Whatever I want to draw goes here
-        window.draw(circle);
+
+        DrawBatal(player1, window);
+        DrawBatal(player2, window);
 
         window.display();
     }
