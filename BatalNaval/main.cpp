@@ -1,6 +1,6 @@
-
 #include <iostream>
 #include <SFML/Graphics.hpp>
+#include "Graphismes.h"
 
 int main()
 {
@@ -8,10 +8,10 @@ int main()
     sf::RenderWindow window(sf::VideoMode(800, 600), "ChronoSpacer");
     // Initialise everything below
 
-    sf::CircleShape circle; // Déclaration de "circle" (sans affectation)
+    sf::CircleShape circle; // Dï¿½claration de "circle" (sans affectation)
     circle.setRadius(100.0f);
     circle.setPosition(100.0f, 100.0f);
-    circle.setFillColor(sf::Color::Red); // Appel de méthode qui travaille sur "circle"
+    circle.setFillColor(sf::Color::Red); // Appel de mï¿½thode qui travaille sur "circle"
 
 
     // Game loop
@@ -44,5 +44,6 @@ int main()
 
 
 
+    Graphismes();
 }
 

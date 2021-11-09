@@ -7,7 +7,7 @@ void Graphismes()
 	sf::RenderWindow window(sf::VideoMode(800, 600), "Graphisme");
 	// Initialise everything below
 	//sf::CircleShape wave;
-	//wave.setRadius(50.0f); // Appel de méthode qui travaille sur "circle"
+	//wave.setRadius(50.0f); // Appel de mï¿½thode qui travaille sur "circle"
 	//wave.setPosition(100, 420);
 	//wave.setFillColor(sf::Color::Blue);
 
