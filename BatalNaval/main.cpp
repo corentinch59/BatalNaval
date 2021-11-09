@@ -8,7 +8,7 @@ int main()
     sf::ContextSettings settings;
     settings.antialiasingLevel = 8;
 
-    sf::RenderWindow window(sf::VideoMode(800, 600), "ChronoSpacer", sf::Style::Default, settings);
+    sf::RenderWindow window(sf::VideoMode(800, 600), "BatalNaval", sf::Style::Default, settings);
     // Initialise everything below
     Batal player1 = CreateBatal(100, 100, 1);
     Batal player2 = CreateBatal(400, 100, 1.5);
