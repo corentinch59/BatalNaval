@@ -1,7 +1,10 @@
 #include <iostream>
 #include <SFML/Graphics.hpp>
+#include "Math.h"
+#include "Camera.h"
 #include "batal.h"
 #include "Graphismes.h"
+#include "Collision.h"
 
 int main()
 {
@@ -25,45 +28,77 @@ int main()
 	bool vrari = true;
 
 	// Initialise everything below
-	sf::Clock clock;
 
 	Batal player1 = CreateBatal(100.f, 450.f, 2);
 	Canon canon1 = CreateCanon(player1);
 	Uwater water = CreateWater();
 	
 
+
+    sf::View view;//(sf::Vector2f(350.f, 300.f), sf::Vector2f(300.f, 200.f));
+    view.setCenter(sf::Vector2f(400.0f, 300.f));
+    view.setSize(sf::Vector2f(800.f, 600.f));
+
+    window.setView(view);
+
+    bool goingLeft = true;
+
+    sf::Clock clock;
+
+    sf::Vector2f posBatalOne = sf::Vector2f(player1.position.x + 300.f, player1.position.y - 150.f);
+    sf::Vector2f posBatalTwo = sf::Vector2f(1000.0f, player1.position.y - 150.f);
+    sf::Vector2f target = posBatalOne;
+    sf::Vector2f CameraPos = view.getCenter();
+
 	WavesCreator(numberOfWaves, wavesEffect, voidEffect);
+	
+    // Game loop
+    while (window.isOpen()) {
+        sf::Event event;
 
-	// Game loop
-	while (window.isOpen()) {
+        float deltaTime = clock.getElapsedTime().asSeconds();
+        
+        MovingCam(window, view, CameraPos, target, deltaTime);
 
-		sf::Event event;
-		float deltaTime = clock.getElapsedTime().asSeconds();
-		clock.restart();
-		while (window.pollEvent(event)) {
-			// Process any input event here
-			if (event.type == sf::Event::Closed) {
-				window.close();
-			}
-			if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Space)
-			{
-				Aiming(pos, upLimit, downLimit, isUp, angleR, canon1);
-			}
-		}
-		window.clear();
+        while (window.pollEvent(event)) {
 
+            // Process any input event here
+            switch (event.type) {
+
+            case sf::Event::Closed:
+                window.close();
+                break;
+
+            case sf::Event::KeyPressed:
+				if (event.key.code == sf::Keyboard::Space)
+				{
+					Aiming(pos, upLimit, downLimit, isUp, angleR, Canon);
+				}
+                break;
+                
+            case sf::Event::KeyReleased:
+                if (event.key.code == sf::Keyboard::Space)
+                {
+                    target = Direction(goingLeft, posBatalOne, posBatalTwo);
+                    clock.restart();
+                    CameraPos = view.getCenter();
+					CreatingBullet(bullet, window);
+                }
+                break;
+
+            default: break;
+            }
+        }
+        window.clear();
+        // Whatever I want to draw goes here
+		
 		DrawWater(water, window);
 		WavesDrawing(wavesEffect, voidEffect, window);
 		DrawBatal(player1, window);
 		DrawCanon(canon1, window);
 		
-		if (event.type == sf::Event::KeyReleased && event.key.code == sf::Keyboard::Space)
-		{
-			CreatingBullet(bullet, window);
-		}
-
 		MovingBullet(bullet, window);
 
-		window.display();
-	}
+        window.display();
+    }
 }
