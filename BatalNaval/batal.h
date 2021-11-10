@@ -25,6 +25,7 @@ struct Batal {
 	Mast mast;
 	Sail sail;
 	Position position;
+	float scale;
 };
 
 Batal CreateBatal(float x, float y, float scale);

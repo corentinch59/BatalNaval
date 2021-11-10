@@ -14,8 +14,6 @@ int main()
     sf::RenderWindow window(sf::VideoMode(800, 600), "BatalNaval", sf::Style::Default, settings);
     // Initialise everything below
     sf::Clock clock;
-    Batal player1 = CreateBatal(100, 100, 1);
-    Batal player2 = CreateBatal(400, 100, 1.5);
 
     // Game loop
     while (window.isOpen()) {
@@ -44,8 +42,7 @@ int main()
 
         window.clear();
 
-        DrawBatal(player1, window);
-        DrawBatal(player2, window);
+        
 
         window.display();
     }
