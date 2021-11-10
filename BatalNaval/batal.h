@@ -32,3 +32,5 @@ Batal CreateBatal(float x, float y, float scale);
 void DrawBatal(Batal& batal, sf::RenderWindow& window);
 
 void RotateBatal(Batal& batal, float angle);
+
+void FlipBatal(Batal& batal);

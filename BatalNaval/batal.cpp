@@ -44,6 +44,10 @@ Batal CreateBatal(float x, float y, float scale)
 	return newBatal;
 }
 
+void FlipBatal(Batal& batal) {
+
+}
+
 void RotateBatal(Batal& batal, float angle) {
 	batal.hull.hullShape.rotate(angle);
 	batal.mast.mastShape.rotate(angle);
