@@ -69,29 +69,29 @@ void WavesCreator(int a, std::list<sf::CircleShape>& waves, std::list<sf::Circle
 {
 	int length = a;
 	float posY = 480.f;
-	float posX = -26.f;
+	float posX = -96.f;
 
 	for(int i = 0; i < length; i++)
 	{
 		sf::CircleShape wave;
-		wave.setRadius(43.0f);
+		wave.setRadius(50.f);
 		wave.setFillColor(sf::Color::Blue);
 		wave.setPosition(posX, posY);
-		posX += 130.f;
+		posX += 127.f;
 		
 		waves.push_back(wave);
 	}
 
-	float voidPosX = 20.f;
-	float voidPosY = 470.f;
+	float voidPosX = -44.f;
+	float voidPosY = 465.5f;
 
 	for (int j = 0; j < length; j++)
 	{
 		sf::CircleShape voidWave;
-		voidWave.setRadius(42.0f);
+		voidWave.setRadius(39.5f);
 		voidWave.setFillColor(sf::Color::Black);
 		voidWave.setPosition(voidPosX, voidPosY);
-		voidPosX += 130.f;
+		voidPosX += 127.f;
 
 		voidWaves.push_back(voidWave);
 	}
@@ -152,10 +152,10 @@ void MovingBullet(sf::CircleShape& bullet, sf::RenderWindow& window)
 	}
 }
 
-void CreateCanon(sf::RectangleShape& Canon)
+void CreateCanon(sf::RectangleShape& Canon, Batal& player)
 {
-	Canon.setPosition(200.f, 300.f);
-	Canon.setFillColor(sf::Color::Yellow);
+	Canon.setPosition(player.hull.position.x + 150, player.hull.position.y - 20);
+	Canon.setFillColor(sf::Color::Color(64, 78, 77, 255));
 }
 
 void CreateWater(sf::RectangleShape& Uwater) 

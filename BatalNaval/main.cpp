@@ -10,7 +10,7 @@ int main()
 
 	sf::RenderWindow window(sf::VideoMode(800, 600), "BatalNaval", sf::Style::Default, settings);
 	sf::RectangleShape Uwater(sf::Vector2f(800.0f, 100.0f));
-	sf::RectangleShape Canon(sf::Vector2f(70.0f, 50.0f));
+	sf::RectangleShape Canon(sf::Vector2f(70.0f, 20.0f));
 	std::list<sf::CircleShape> wavesEffect;
 	std::list<sf::CircleShape> voidEffect;
 
@@ -18,7 +18,7 @@ int main()
 
 	float angleR = 1.f;
 	float upLimit = 4.f;
-	float downLimit = -4.f;
+	float downLimit = -2.2f;
 	float pos = 0;
 	int numberOfWaves = 10;
 	bool isUp = true;
@@ -28,8 +28,11 @@ int main()
 	// Initialise everything below
 	sf::Clock clock;
 
-	CreateCanon(Canon);
+	Batal player1 = CreateBatal(100.f, 450.f, 2);
+
+	CreateCanon(Canon, player1);
 	CreateWater(Uwater);
+	
 
 	WavesCreator(numberOfWaves, wavesEffect, voidEffect);
 
@@ -53,6 +56,7 @@ int main()
 
 		window.draw(Uwater);
 		WavesDrawing(wavesEffect, voidEffect, window);
+		DrawBatal(player1, window);
 		window.draw(Canon);
 		
 
@@ -61,7 +65,6 @@ int main()
 			CreatingBullet(bullet, window);
 		}
 
-    sf::RenderWindow window(sf::VideoMode(800, 600), "BatalNaval", sf::Style::Default, settings);
 		MovingBullet(bullet, window);
 
 		window.display();

@@ -19,6 +19,9 @@
     <Filter Include="Fichiers sources\GraphismesH\Graphismes">
       <UniqueIdentifier>{9e8aa037-e89d-48dd-aa67-82e43eec0d22}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Fichiers sources\Batal">
+      <UniqueIdentifier>{c1977205-1017-4ce6-b62d-27fbcbdba1af}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -27,10 +30,16 @@
     <ClCompile Include="Graphismes.cpp">
       <Filter>Fichiers sources\GraphismesH\Graphismes</Filter>
     </ClCompile>
+    <ClCompile Include="batal.cpp">
+      <Filter>Fichiers sources\Batal</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Graphismes.h">
       <Filter>Fichiers sources\GraphismesH\Graphismes</Filter>
+    </ClInclude>
+    <ClInclude Include="batal.h">
+      <Filter>Fichiers sources\Batal</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
