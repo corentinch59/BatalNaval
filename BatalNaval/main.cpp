@@ -52,20 +52,16 @@ int main()
                 break;
 
             case sf::Event::KeyPressed:
+                break;
+                
+            case sf::Event::KeyReleased:
                 if (event.key.code == sf::Keyboard::Space)
                 {
-                    if (goingLeft)
-                    {
-                        target = posBatalTwo;
-                        goingLeft = false;
-                    }
-                    else {
-                        target = posBatalOne;
-                        goingLeft = true;
-                    }
+                    target = Direction(goingLeft, posBatalOne, posBatalTwo);
                     clock.restart();
                     CameraPos = view.getCenter();
                 }
+                break;
 
             default: break;
             }

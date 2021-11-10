@@ -14,3 +14,18 @@ void MovingCam(sf::RenderWindow& window, sf::View& view, sf::Vector2f from, sf::
 	    window.setView(view);
     }
 }
+
+sf::Vector2f Direction(bool& boolean, sf::Vector2f posOne, sf::Vector2f posTwo) {
+
+    if (boolean)
+    {
+        boolean = false;
+        return posTwo;
+    }
+    else {
+        boolean = true;
+        return posOne;
+    }
+    //clock.restart();
+    //CameraPos = view.getCenter();
+}
