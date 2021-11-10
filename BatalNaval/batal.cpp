@@ -41,6 +41,7 @@ Batal CreateBatal(float x, float y, float scale)
 	newSail.rotate(90);
 	newSail.setPosition(newBatal.position.x + 95 * newBatal.scale, newBatal.position.y - 75 * newBatal.scale);
 	newBatal.sail.sailShape = newSail;
+	newBatal.sail.position = { newBatal.position.x + 95 * newBatal.scale, newBatal.position.y - 75 * newBatal.scale };
 
 	return newBatal;
 }
@@ -48,6 +49,12 @@ Batal CreateBatal(float x, float y, float scale)
 void FlipBatal(Batal& batal) {
 	// Flip de la coque du batal
 	batal.hull.hullShape.setScale(-1.0f, 1.0f);
+
+	// Ajustement position du mât du batal
+	UpdateMastPosition(batal.position.x - 50 * batal.scale, batal.position.y, batal);
+
+	// Ajustement de la voile du batal
+	UpdateSailPosition(batal.position.x - 100 * batal.scale, batal.position.y - 15 * batal.scale, batal);
 }
 
 void RotateBatal(Batal& batal, float angle) {
@@ -60,4 +67,17 @@ void DrawBatal(Batal& batal, sf::RenderWindow& window) {
 	window.draw(batal.hull.hullShape);
 	window.draw(batal.mast.mastShape);
 	window.draw(batal.sail.sailShape);
+}
+
+void UpdateMastPosition(float x, float y, Batal& batal) {
+	batal.mast.mastShape.setPosition(x, y);
+	sf::Vector2f mastpos = batal.mast.mastShape.getPosition();
+	batal.mast.position = { mastpos.x, mastpos.y };
+}
+
+void UpdateSailPosition(float x, float y, Batal& batal) {
+	batal.sail.sailShape.setPosition(x, y);
+	batal.sail.sailShape.rotate(180);
+	sf::Vector2f sailpos = batal.sail.sailShape.getPosition();
+	batal.sail.position = { sailpos.x, sailpos.y };
 }

@@ -35,3 +35,7 @@ void DrawBatal(Batal& batal, sf::RenderWindow& window);
 void RotateBatal(Batal& batal, float angle);
 
 void FlipBatal(Batal& batal);
+
+void UpdateMastPosition(float x, float y, Batal& batal);
+
+void UpdateSailPosition(float x, float y, Batal& batal);
