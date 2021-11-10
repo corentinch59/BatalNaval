@@ -10,13 +10,15 @@ int main()
     // Initialise everything below
 
     sf::CircleShape circle; // Déclaration de "circle" (sans affectation)
-    circle.setRadius(100.0f);
-    circle.setPosition(100.0f, 100.0f);
+    circle.setRadius(20.f);
+    circle.setPosition(150.f, 150.f);
+    circle.setOrigin(10.f, 10.f);
     circle.setFillColor(sf::Color::Red); // Appel de méthode qui travaille sur "circle"
-    sf::CircleShape circle2; // Déclaration de "circle" (sans affectation)
-    circle2.setRadius(100.0f);
-    circle2.setPosition(600.0f, 100.0f);
-    circle2.setFillColor(sf::Color::Blue);
+
+    sf::ConvexShape Rect; 
+    //Rect.set(sf::Vector2f(100.f, 50.f));
+    Rect.setPosition(600.0f, 120.f);
+    Rect.setFillColor(sf::Color::Blue);
 
     sf::View view;//(sf::Vector2f(350.f, 300.f), sf::Vector2f(300.f, 200.f));
     view.setCenter(sf::Vector2f(200.0f, 150.f));
@@ -33,6 +35,7 @@ int main()
     sf::Vector2f target = posBatalOne;
     sf::Vector2f CameraPos = view.getCenter();
 
+
     // Game loop
     while (window.isOpen()) {
         sf::Event event;
@@ -40,6 +43,10 @@ int main()
         float deltaTime = clock.getElapsedTime().asSeconds();
         
         MovingCam(window, view, CameraPos, target, deltaTime);
+
+        
+
+        
 
 
         while (window.pollEvent(event)) {
@@ -69,7 +76,7 @@ int main()
         window.clear();
         // Whatever I want to draw goes here
         window.draw(circle);
-        window.draw(circle2);
+        window.draw(Rect);
 
         window.display();
     }
