@@ -13,39 +13,33 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="Fichiers sources\Math">
-      <UniqueIdentifier>{97e02805-a2a9-46bc-9601-8ceb2fe3b7b5}</UniqueIdentifier>
+    <Filter Include="Fichiers sources\GraphismesH">
+      <UniqueIdentifier>{f7450402-6060-415a-8a78-7011e0e442a3}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Fichiers sources\Camera">
-      <UniqueIdentifier>{a237f594-1beb-4da0-be49-968262b5da34}</UniqueIdentifier>
+    <Filter Include="Fichiers sources\GraphismesH\Graphismes">
+      <UniqueIdentifier>{9e8aa037-e89d-48dd-aa67-82e43eec0d22}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Fichiers sources\Collision">
-      <UniqueIdentifier>{4aa5e5f5-237f-4b4a-aed3-d22226ec10bf}</UniqueIdentifier>
+    <Filter Include="Fichiers sources\Batal">
+      <UniqueIdentifier>{c1977205-1017-4ce6-b62d-27fbcbdba1af}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
-    <ClCompile Include="Math.cpp">
-      <Filter>Fichiers sources\Math</Filter>
+    <ClCompile Include="Graphismes.cpp">
+      <Filter>Fichiers sources\GraphismesH\Graphismes</Filter>
     </ClCompile>
-    <ClCompile Include="Camera.cpp">
-      <Filter>Fichiers sources\Camera</Filter>
-    </ClCompile>
-    <ClCompile Include="Collision.cpp">
-      <Filter>Fichiers sources\Collision</Filter>
+    <ClCompile Include="batal.cpp">
+      <Filter>Fichiers sources\Batal</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Math.h">
-      <Filter>Fichiers sources\Math</Filter>
+    <ClInclude Include="Graphismes.h">
+      <Filter>Fichiers sources\GraphismesH\Graphismes</Filter>
     </ClInclude>
-    <ClInclude Include="Camera.h">
-      <Filter>Fichiers sources\Camera</Filter>
-    </ClInclude>
-    <ClInclude Include="Collision.h">
-      <Filter>Fichiers sources\Collision</Filter>
+    <ClInclude Include="batal.h">
+      <Filter>Fichiers sources\Batal</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

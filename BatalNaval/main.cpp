@@ -2,12 +2,39 @@
 #include <SFML/Graphics.hpp>
 #include "Math.h"
 #include "Camera.h"
+#include "batal.h"
+#include "Graphismes.h"
 
 int main()
 {
     
-    sf::RenderWindow window(sf::VideoMode(800, 600), "BatalNaval");
-    // Initialise everything below
+	sf::ContextSettings settings;
+	settings.antialiasingLevel = 8;
+
+	sf::RenderWindow window(sf::VideoMode(800, 600), "BatalNaval", sf::Style::Default, settings);
+	sf::RectangleShape Uwater(sf::Vector2f(800.0f, 100.0f));
+	sf::RectangleShape Canon(sf::Vector2f(70.0f, 20.0f));
+	std::list<sf::CircleShape> wavesEffect;
+	std::list<sf::CircleShape> voidEffect;
+
+	sf::CircleShape bullet;
+
+	float angleR = 1.f;
+	float upLimit = 4.f;
+	float downLimit = -2.2f;
+	float pos = 0;
+	int numberOfWaves = 10;
+	bool isUp = true;
+	bool isFiring = false;
+	bool vrari = true;
+
+	// Initialise everything below
+
+	Batal player1 = CreateBatal(100.f, 450.f, 2);
+
+	CreateCanon(Canon, player1);
+	CreateWater(Uwater);
+	
 
     sf::CircleShape circle; // Déclaration de "circle" (sans affectation)
     circle.setRadius(20.f);
@@ -35,7 +62,8 @@ int main()
     sf::Vector2f target = posBatalOne;
     sf::Vector2f CameraPos = view.getCenter();
 
-
+	WavesCreator(numberOfWaves, wavesEffect, voidEffect);
+	
     // Game loop
     while (window.isOpen()) {
         sf::Event event;
@@ -43,11 +71,6 @@ int main()
         float deltaTime = clock.getElapsedTime().asSeconds();
         
         MovingCam(window, view, CameraPos, target, deltaTime);
-
-        
-
-        
-
 
         while (window.pollEvent(event)) {
 
@@ -59,6 +82,10 @@ int main()
                 break;
 
             case sf::Event::KeyPressed:
+				if (event.key.code == sf::Keyboard::Space)
+				{
+					Aiming(pos, upLimit, downLimit, isUp, angleR, Canon);
+				}
                 break;
                 
             case sf::Event::KeyReleased:
@@ -67,6 +94,7 @@ int main()
                     target = Direction(goingLeft, posBatalOne, posBatalTwo);
                     clock.restart();
                     CameraPos = view.getCenter();
+					CreatingBullet(bullet, window);
                 }
                 break;
 
@@ -75,10 +103,18 @@ int main()
         }
         window.clear();
         // Whatever I want to draw goes here
-        window.draw(circle);
-        window.draw(Rect);
+        // window.draw(circle);
+        // window.draw(Rect);
+		
+		window.draw(Uwater);
+		WavesDrawing(wavesEffect, voidEffect, window);
+		DrawBatal(player1, window);
+		window.draw(Canon);
+		
+
+
+		MovingBullet(bullet, window);
 
         window.display();
     }
 }
-
