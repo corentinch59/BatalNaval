@@ -3,68 +3,6 @@
 #include "Graphismes.h"
 
 
-
-void Graphismes()
-{
-	//sf::RectangleShape Uwater(sf::Vector2f(800.0f, 100.0f));
-
-	//sf::RectangleShape Canon(sf::Vector2f(70.0f, 50.0f));
-
-	//std::list<sf::CircleShape> wavesEffect;
-	//std::list<sf::CircleShape> voidEffect;
-
-	//sf::CircleShape bullet;
-
-	//float angleR = 1.f;
-	//float upLimit = 4.f;
-	//float downLimit = -4.f;
-	//float pos = 0;
-	//int numberOfWaves = 10;
-	//bool isUp = true;
-	//bool isFiring = false;
-	//bool vrari = true;
-
-
-	//sf::RenderWindow window(sf::VideoMode(800, 600), "Fenetre Principal");
-	//// Initialise everything below
-
-	//CreateCanon(Canon);
-	//CreateWater(Uwater);
-
-	//WavesCreator(numberOfWaves, wavesEffect, voidEffect);
-
- //   // Game loop
-	//while (window.isOpen()) {
-
-	//	sf::Event event;
-	//	while (window.pollEvent(event)) {
-	//		// Process any input event here
-	//		if (event.type == sf::Event::Closed) {
-	//			window.close();
-	//		}
-	//		if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Space)
-	//		{
-	//			Aiming(pos, upLimit, downLimit, isUp, angleR, Canon);
-	//		}
-	//	}
-	//	window.clear();
-	//
-	//	window.draw(Uwater);
-	//	WavesDrawing(wavesEffect, voidEffect, window);
-
-	//	window.draw(Canon);
-
-	//	if (event.type == sf::Event::KeyReleased && event.key.code == sf::Keyboard::Space)
-	//	{
-	//		CreatingBullet(bullet, window);
-	//	}
-
-	//	MovingBullet(bullet, window);
-
-	//	window.display();
-	//}
-}
-
 void WavesCreator(int a, std::list<sf::CircleShape>& waves, std::list<sf::CircleShape>& voidWaves)
 {
 	int length = a;
@@ -97,12 +35,12 @@ void WavesCreator(int a, std::list<sf::CircleShape>& waves, std::list<sf::Circle
 	}
 }
 
-void Aiming(float& pos, float& upLimit, float& downLimit, bool& isUp, float& angleR, sf::RectangleShape& Canon)
+void Aiming(float& pos, float& upLimit, float& downLimit, bool& isUp, float& angleR, Canon& canon)
 {
 	
 		if (pos < upLimit && isUp)
 		{
-			Canon.rotate(-angleR);
+			canon.canon.rotate(-angleR);
 			pos += 0.1f;
 			if (pos >= upLimit)
 			{
@@ -111,7 +49,7 @@ void Aiming(float& pos, float& upLimit, float& downLimit, bool& isUp, float& ang
 		}
 		else if (pos > downLimit && !isUp)
 		{
-			Canon.rotate(angleR);
+			canon.canon.rotate(angleR);
 			pos -= 0.1f;
 			if (pos < downLimit)
 			{
@@ -152,18 +90,41 @@ void MovingBullet(sf::CircleShape& bullet, sf::RenderWindow& window)
 	}
 }
 
-void CreateCanon(sf::RectangleShape& Canon, Batal& player)
+Canon CreateCanon( Batal& player)
 {
-	Canon.setPosition(player.hull.position.x + 150, player.hull.position.y - 20);
-	Canon.setFillColor(sf::Color::Color(64, 78, 77, 255));
+	Canon newCanon;
+	sf::RectangleShape New(sf::Vector2f(70.0f, 20.0f));
+	newCanon.canon = New;
+	newCanon.canon.setPosition(player.hull.position.x + 170, player.hull.position.y - 20);
+	newCanon.canon.setFillColor(sf::Color::Color(64, 78, 77, 255));
+	newCanon.roue.setRadius(17);
+	newCanon.roue.setPosition(newCanon.canon.getPosition().x - 7, newCanon.canon.getPosition().y- 8);
+	newCanon.roue.setFillColor(sf::Color::Color(64, 50, 51, 255));
+	newCanon.canon.setOrigin(0, 10);
+	return newCanon;
 }
 
-void CreateWater(sf::RectangleShape& Uwater) 
+void DrawCanon(Canon& canon, sf::RenderWindow& window)
 {
-	Uwater.setPosition(0.f, 520.f);
-	Uwater.setFillColor(sf::Color::Blue);
+	window.draw(canon.canon);
+	window.draw(canon.roue);
 }
 
+Uwater CreateWater() 
+{
+	Uwater water;
+	sf::RectangleShape New(sf::Vector2f(1600.0f, 100.0f));
+	water.water = New;
+	water.water.setPosition(0.f, 520.f);
+	water.water.setFillColor(sf::Color::Blue);
+	return water;
+	
+}
+
+void DrawWater(Uwater& water, sf::RenderWindow& window)
+{
+	window.draw(water.water);
+}
 
 
 

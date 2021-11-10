@@ -3,12 +3,23 @@
 #include "batal.h"
 
 
-void Graphismes();
+struct Canon
+{
+	sf::RectangleShape canon;
+	sf::CircleShape roue;
+};
 
-void CreateWater(sf::RectangleShape& Uwater);
-void CreateCanon(sf::RectangleShape& Canon, Batal& player);
+struct Uwater 
+{
+	sf::RectangleShape water;
+};
+
+Uwater CreateWater();
+void DrawWater(Uwater& water, sf::RenderWindow& window);
+Canon CreateCanon(Batal& player);
 void WavesCreator(int a, std::list<sf::CircleShape>& waves, std::list<sf::CircleShape>& voidWaves);
-void Aiming(float& pos, float& upLimit, float& downLimit, bool& isUp, float& angleR, sf::RectangleShape& Canon);
+void Aiming(float& pos, float& upLimit, float& downLimit, bool& isUp, float& angleR, Canon& canon);
 void WavesDrawing(std::list<sf::CircleShape>& wavesEffect, std::list<sf::CircleShape>& voidEffect, sf::RenderWindow& window);
 void CreatingBullet(sf::CircleShape& bullet, sf::RenderWindow& window);
 void MovingBullet(sf::CircleShape& bullet, sf::RenderWindow& window);
+void DrawCanon(Canon& canon, sf::RenderWindow& window);

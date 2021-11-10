@@ -9,8 +9,7 @@ int main()
 	settings.antialiasingLevel = 8;
 
 	sf::RenderWindow window(sf::VideoMode(800, 600), "BatalNaval", sf::Style::Default, settings);
-	sf::RectangleShape Uwater(sf::Vector2f(800.0f, 100.0f));
-	sf::RectangleShape Canon(sf::Vector2f(70.0f, 20.0f));
+
 	std::list<sf::CircleShape> wavesEffect;
 	std::list<sf::CircleShape> voidEffect;
 
@@ -20,7 +19,7 @@ int main()
 	float upLimit = 4.f;
 	float downLimit = -2.2f;
 	float pos = 0;
-	int numberOfWaves = 10;
+	int numberOfWaves = 13;
 	bool isUp = true;
 	bool isFiring = false;
 	bool vrari = true;
@@ -29,9 +28,8 @@ int main()
 	sf::Clock clock;
 
 	Batal player1 = CreateBatal(100.f, 450.f, 2);
-
-	CreateCanon(Canon, player1);
-	CreateWater(Uwater);
+	Canon canon1 = CreateCanon(player1);
+	Uwater water = CreateWater();
 	
 
 	WavesCreator(numberOfWaves, wavesEffect, voidEffect);
@@ -49,17 +47,16 @@ int main()
 			}
 			if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Space)
 			{
-				Aiming(pos, upLimit, downLimit, isUp, angleR, Canon);
+				Aiming(pos, upLimit, downLimit, isUp, angleR, canon1);
 			}
 		}
 		window.clear();
 
-		window.draw(Uwater);
+		DrawWater(water, window);
 		WavesDrawing(wavesEffect, voidEffect, window);
 		DrawBatal(player1, window);
-		window.draw(Canon);
+		DrawCanon(canon1, window);
 		
-
 		if (event.type == sf::Event::KeyReleased && event.key.code == sf::Keyboard::Space)
 		{
 			CreatingBullet(bullet, window);
