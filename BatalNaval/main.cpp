@@ -8,7 +8,6 @@
 
 int main()
 {
-    
 	sf::ContextSettings settings;
 	settings.antialiasingLevel = 8;
 
@@ -37,12 +36,6 @@ int main()
 	CreateWater(Uwater);
 	
 
-    sf::CircleShape circle; // Déclaration de "circle" (sans affectation)
-    circle.setRadius(20.f);
-    circle.setPosition(700.f, 150.f);
-    circle.setOrigin(10.f, 10.f);
-    circle.setFillColor(sf::Color::Red); // Appel de méthode qui travaille sur "circle".
-
 
     sf::View view;//(sf::Vector2f(350.f, 300.f), sf::Vector2f(300.f, 200.f));
     view.setCenter(sf::Vector2f(400.0f, 300.f));
@@ -69,10 +62,6 @@ int main()
         
         MovingCam(window, view, CameraPos, target, deltaTime);
 
-        if (TestCollision(player1.hull.hullShape, circle))
-        {
-        }
-        else circle.move(-0.1f, 0.1f);
 
         while (window.pollEvent(event)) {
 
@@ -105,7 +94,6 @@ int main()
         }
         window.clear();
         // Whatever I want to draw goes here
-        window.draw(circle);
 		
 		window.draw(Uwater);
 		WavesDrawing(wavesEffect, voidEffect, window);

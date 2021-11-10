@@ -21,11 +21,16 @@ bool TestCollision(sf::ConvexShape batal, sf::CircleShape& bullet) {
     pointVector.push_back(bullet.getPosition());
 
 
+    //for(int i = 0; i < nbpoint; i++)
+    //{
+
+    //}
+
+
     for (int i = 0; i < nbpoint; i++)
     {
         if (boundingBox.contains(pointVector[i]))
         {
-            std::cout << pointVector[i].x << ", " << pointVector[i].y <<  " index : " << i << '\n';
             return true;
         }
     }
