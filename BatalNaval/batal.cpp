@@ -44,6 +44,12 @@ Batal CreateBatal(float x, float y, float scale)
 	return newBatal;
 }
 
+void RotateBatal(Batal& batal, float angle) {
+	batal.hull.hullShape.rotate(angle);
+	batal.mast.mastShape.rotate(angle);
+	batal.sail.sailShape.rotate(angle);
+}
+
 void DrawBatal(Batal& batal, sf::RenderWindow& window) {
 	window.draw(batal.hull.hullShape);
 	window.draw(batal.mast.mastShape);
