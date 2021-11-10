@@ -1,22 +1,25 @@
 
 #include <iostream>
 #include <SFML/Graphics.hpp>
+#include "batal.h"
+
+float PI = 3.14159265358979323846;
+float turnPerSecond = 1;
 
 int main()
 {
+    sf::ContextSettings settings;
+    settings.antialiasingLevel = 8;
 
-    sf::RenderWindow window(sf::VideoMode(800, 600), "ChronoSpacer");
+    sf::RenderWindow window(sf::VideoMode(800, 600), "BatalNaval", sf::Style::Default, settings);
     // Initialise everything below
-
-    sf::CircleShape circle; // Déclaration de "circle" (sans affectation)
-    circle.setRadius(100.0f);
-    circle.setPosition(100.0f, 100.0f);
-    circle.setFillColor(sf::Color::Red); // Appel de méthode qui travaille sur "circle"
-
+    sf::Clock clock;
 
     // Game loop
     while (window.isOpen()) {
         sf::Event event;
+        float deltaTime = clock.getElapsedTime().asSeconds();
+        clock.restart();
 
         while (window.pollEvent(event)) {
             // Process any input event here
@@ -36,8 +39,7 @@ int main()
             }
         }
         window.clear();
-        // Whatever I want to draw goes here
-        window.draw(circle);
+
 
         window.display();
     }
