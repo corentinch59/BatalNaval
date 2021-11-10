@@ -32,8 +32,6 @@ int main()
 	Batal player1 = CreateBatal(100.f, 450.f, 2);
 	Canon canon1 = CreateCanon(player1);
 	Uwater water = CreateWater();
-	
-
 
     sf::View view;//(sf::Vector2f(350.f, 300.f), sf::Vector2f(300.f, 200.f));
     view.setCenter(sf::Vector2f(400.0f, 300.f));
@@ -72,7 +70,7 @@ int main()
             case sf::Event::KeyPressed:
 				if (event.key.code == sf::Keyboard::Space)
 				{
-					Aiming(pos, upLimit, downLimit, isUp, angleR, Canon);
+					Aiming(pos, upLimit, downLimit, isUp, angleR, canon1);
 				}
                 break;
                 

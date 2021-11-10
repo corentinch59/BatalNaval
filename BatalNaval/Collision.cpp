@@ -1,5 +1,6 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
+#include <Cmath>
 
 bool TestCollision(sf::ConvexShape batal, sf::CircleShape& bullet) {
 
@@ -21,10 +22,18 @@ bool TestCollision(sf::ConvexShape batal, sf::CircleShape& bullet) {
     pointVector.push_back(bullet.getPosition());
 
 
-    //for(int i = 0; i < nbpoint; i++)
-    //{
-
-    //}
+    //DU CODE A FINIR POUR CLEAN
+    //float angle;
+    //float ratio;
+    //    for(int i = 0; i < nbpoint; i++)
+    //    {
+    //        ratio = i / nbpoint; // tend vers 1
+    //        angle = 2 * 3.14159265358979323846f * ratio; // angle qui fait le tour du cercle
+    //        
+    //        pointVector.push_back(sf::Vector2f(bullet.getPosition().x + bullet.getRadius() / 2, bullet.getPosition().y));
+    //        cube.transform.position = new Vector3(Mathf.Cos(angle) * bullet.getRadius(), Mathf.Sin(angle) * bullet.getRadius()); //un Carre a chaque angle 
+    //        
+    //    }
 
 
     for (int i = 0; i < nbpoint; i++)
