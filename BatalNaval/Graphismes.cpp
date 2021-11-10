@@ -4,36 +4,36 @@
 #include <list>
 
 void wavesCreator(int a, std::list<sf::CircleShape>& waves, std::list<sf::CircleShape>& voidWaves);
+void Firing();
 
 void Graphismes()
 {
 	sf::RenderWindow window(sf::VideoMode(800, 600), "Graphisme");
 	// Initialise everything below
 
-	/*sf::CircleShape circle;
-	circle.setFillColor(sf::Color::Red);
-	circle.setRadius(50);
-	circle.setPosition(- 10.f, 430.f);*/
-
-	sf::RectangleShape Uwater(sf::Vector2f(800.0f, 200.0f));
-	Uwater.setPosition(0.f, 450.f);
+	sf::RectangleShape Uwater(sf::Vector2f(800.0f, 100.0f));
+	Uwater.setPosition(0.f, 520.f);
 	Uwater.setFillColor(sf::Color::Blue);
 
-	sf::RectangleShape Canon(sf::Vector2f(100.0f, 50.0f));
-	Canon.setPosition(400.f, 100.f);
+	sf::RectangleShape Canon(sf::Vector2f(70.0f, 50.0f));
+	Canon.setPosition(200.f, 300.f);
 	Canon.setFillColor(sf::Color::Yellow);
 
 	std::list<sf::CircleShape> wavesEffect;
 	std::list<sf::CircleShape> voidEffect;
 	
+	sf::CircleShape Bullet;
 
 	float angleR = 1.f;
 	float upLimit = 4.f;
 	float downLimit = -4.f;
 	float pos = 0;
+	int numberOfWaves = 10;
 	bool isUp = true;
+	bool isFiring = false;
+	bool vrari = true;
 
-	wavesCreator(10, wavesEffect, voidEffect);
+	wavesCreator(numberOfWaves, wavesEffect, voidEffect);
 
     // Game loop
 	while (window.isOpen()) {
@@ -67,6 +67,7 @@ void Graphismes()
 			}
 		}
 		window.clear();
+
 		window.draw(Uwater);
 		auto it = wavesEffect.begin();
 		while (it != wavesEffect.end())
@@ -80,43 +81,57 @@ void Graphismes()
 			window.draw((*it2));
 			it2++;
 		}
+
 		window.draw(Canon);
+
+		if (event.type == sf::Event::KeyReleased && event.key.code == sf::Keyboard::Space)
+		{
+			Bullet.setRadius(20);
+			Bullet.setFillColor(sf::Color::Green);
+			Bullet.setPosition(200.f, 300.f);
+		}
+		if (Bullet.getPosition().y <= 450.f)
+		{
+			Bullet.move(sf::Vector2f(0.01f, 0.01f));
+			window.draw(Bullet);
+		}
+
 		window.display();
 	}
 }
 
 void wavesCreator(int a, std::list<sf::CircleShape>& waves, std::list<sf::CircleShape>& voidWaves)
 {
-	
 	int length = a;
-	float posY = 420.f;
-	float posX = -10.f;
+	float posY = 480.f;
+	float posX = -26.f;
 
 	for(int i = 0; i < length; i++)
 	{
 		sf::CircleShape wave;
-		wave.setRadius(45.0f);
+		wave.setRadius(43.0f);
 		wave.setFillColor(sf::Color::Blue);
-		wave.setPosition(posX, 430.f);
-		posX += 150.f;
+		wave.setPosition(posX, posY);
+		posX += 130.f;
 		
 		waves.push_back(wave);
 	}
 
-	float voidPosX = 200.f;
+	float voidPosX = 20.f;
+	float voidPosY = 470.f;
 
 	for (int j = 0; j < length; j++)
 	{
 		sf::CircleShape voidWave;
-		voidWave.setRadius(45.0f);
+		voidWave.setRadius(42.0f);
 		voidWave.setFillColor(sf::Color::Black);
-		voidWave.setPosition(voidPosX, 430.f);
-		voidPosX += 150.f;
+		voidWave.setPosition(voidPosX, voidPosY);
+		voidPosX += 130.f;
 
 		voidWaves.push_back(voidWave);
 	}
-
 }
+
 
 
 
