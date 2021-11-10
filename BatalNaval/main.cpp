@@ -4,6 +4,7 @@
 #include "Camera.h"
 #include "batal.h"
 #include "Graphismes.h"
+#include "Collision.h"
 
 int main()
 {
@@ -38,18 +39,14 @@ int main()
 
     sf::CircleShape circle; // Déclaration de "circle" (sans affectation)
     circle.setRadius(20.f);
-    circle.setPosition(150.f, 150.f);
+    circle.setPosition(700.f, 150.f);
     circle.setOrigin(10.f, 10.f);
-    circle.setFillColor(sf::Color::Red); // Appel de méthode qui travaille sur "circle"
+    circle.setFillColor(sf::Color::Red); // Appel de méthode qui travaille sur "circle".
 
-    sf::ConvexShape Rect; 
-    //Rect.set(sf::Vector2f(100.f, 50.f));
-    Rect.setPosition(600.0f, 120.f);
-    Rect.setFillColor(sf::Color::Blue);
 
     sf::View view;//(sf::Vector2f(350.f, 300.f), sf::Vector2f(300.f, 200.f));
-    view.setCenter(sf::Vector2f(200.0f, 150.f));
-    view.setSize(sf::Vector2f(400.0f , 300.f));
+    view.setCenter(sf::Vector2f(400.0f, 300.f));
+    view.setSize(sf::Vector2f(800.f, 600.f));
 
     window.setView(view);
 
@@ -57,8 +54,8 @@ int main()
 
     sf::Clock clock;
 
-    sf::Vector2f posBatalOne = sf::Vector2f(200.0f, 150.0f);
-    sf::Vector2f posBatalTwo = sf::Vector2f(700.0f, 150.0f);
+    sf::Vector2f posBatalOne = sf::Vector2f(player1.position.x + 300.f, player1.position.y - 150.f);
+    sf::Vector2f posBatalTwo = sf::Vector2f(1000.0f, player1.position.y - 150.f);
     sf::Vector2f target = posBatalOne;
     sf::Vector2f CameraPos = view.getCenter();
 
@@ -71,6 +68,11 @@ int main()
         float deltaTime = clock.getElapsedTime().asSeconds();
         
         MovingCam(window, view, CameraPos, target, deltaTime);
+
+        if (TestCollision(player1.hull.hullShape, circle))
+        {
+        }
+        else circle.move(-0.1f, 0.1f);
 
         while (window.pollEvent(event)) {
 
@@ -103,16 +105,13 @@ int main()
         }
         window.clear();
         // Whatever I want to draw goes here
-        // window.draw(circle);
-        // window.draw(Rect);
+        window.draw(circle);
 		
 		window.draw(Uwater);
 		WavesDrawing(wavesEffect, voidEffect, window);
 		DrawBatal(player1, window);
 		window.draw(Canon);
 		
-
-
 		MovingBullet(bullet, window);
 
         window.display();

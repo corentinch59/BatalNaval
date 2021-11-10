@@ -22,6 +22,15 @@
     <Filter Include="Fichiers sources\Batal">
       <UniqueIdentifier>{c1977205-1017-4ce6-b62d-27fbcbdba1af}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Fichiers sources\Collision">
+      <UniqueIdentifier>{06f70f48-ae60-4cb2-8369-3143c31230f7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers sources\Camera">
+      <UniqueIdentifier>{ec58ac6c-d092-49c7-86ef-5637d25dfa98}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers sources\Math">
+      <UniqueIdentifier>{5f91f64a-f7da-4c3e-aa26-83e9b65c4fc8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -33,6 +42,15 @@
     <ClCompile Include="batal.cpp">
       <Filter>Fichiers sources\Batal</Filter>
     </ClCompile>
+    <ClCompile Include="Collision.cpp">
+      <Filter>Fichiers sources\Collision</Filter>
+    </ClCompile>
+    <ClCompile Include="Camera.cpp">
+      <Filter>Fichiers sources\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="Math.cpp">
+      <Filter>Fichiers sources\Math</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Graphismes.h">
@@ -40,6 +58,15 @@
     </ClInclude>
     <ClInclude Include="batal.h">
       <Filter>Fichiers sources\Batal</Filter>
+    </ClInclude>
+    <ClInclude Include="Collision.h">
+      <Filter>Fichiers sources\Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="Camera.h">
+      <Filter>Fichiers sources\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="Math.h">
+      <Filter>Fichiers sources\Math</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
