@@ -1,6 +1,7 @@
 #include <iostream>
 #include <SFML/Graphics.hpp>
 #include "Math.h"
+#include "Camera.h"
 
 int main()
 {
@@ -24,20 +25,13 @@ int main()
     window.setView(view);
 
     bool goingLeft = true;
-    bool movingTheCam = false;
 
     sf::Clock clock;
 
-    float movingTime = 3.0f;
-    float ratio = 0.0f;
-    float elapsedTime = 0.0f;
-
-
     sf::Vector2f posBatalOne = sf::Vector2f(200.0f, 150.0f);
     sf::Vector2f posBatalTwo = sf::Vector2f(700.0f, 150.0f);
-    sf::Vector2f velocity = posBatalOne;
-    sf::Vector2f target;
-    sf::Vector2f CameraPos;
+    sf::Vector2f target = posBatalOne;
+    sf::Vector2f CameraPos = view.getCenter();
 
     // Game loop
     while (window.isOpen()) {
@@ -45,21 +39,8 @@ int main()
 
         float deltaTime = clock.getElapsedTime().asSeconds();
         
-        if (elapsedTime <= movingTime && movingTheCam)
-        {
-            elapsedTime = deltaTime;
-            ratio = elapsedTime / movingTime;
+        MovingCam(window, view, CameraPos, target, deltaTime);
 
-            sf::Vector2f oldVelo = velocity;
-
-            velocity = Lerp(CameraPos, target, ratio);
-
-            sf::Vector2f newVelo = velocity;
-
-            view.move(newVelo - oldVelo);
-            window.setView(view);
-        }
-        
 
         while (window.pollEvent(event)) {
 
@@ -76,18 +57,14 @@ int main()
                     if (goingLeft)
                     {
                         target = posBatalTwo;
-                        CameraPos = view.getCenter();
                         goingLeft = false;
                     }
                     else {
                         target = posBatalOne;
-                        CameraPos = view.getCenter();
                         goingLeft = true;
                     }
-
-                    movingTheCam = true;
-                    elapsedTime = 0.0f;
                     clock.restart();
+                    CameraPos = view.getCenter();
                 }
 
             default: break;
