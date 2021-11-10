@@ -30,6 +30,8 @@ int main()
 	// Initialise everything below
 
 	Batal player1 = CreateBatal(100.f, 450.f, 2);
+	Batal player2 = CreateBatal(1300.f, 450.f, 2);
+    FlipBatal(player2);
 	Canon canon1 = CreateCanon(player1);
 	Uwater water = CreateWater();
 
@@ -93,6 +95,7 @@ int main()
 		DrawWater(water, window);
 		WavesDrawing(wavesEffect, voidEffect, window);
 		DrawBatal(player1, window);
+		DrawBatal(player2, window);
 		DrawCanon(canon1, window);
 		
 		MovingBullet(bullet, window);
