@@ -24,6 +24,7 @@ int main()
 	float pos = 0;
 	int numberOfWaves = 13;
 	bool isUp = true;
+    float rangeX = 600;
 	bool isFiring = false;
 	bool vrari = true;
 
@@ -73,7 +74,7 @@ int main()
             case sf::Event::KeyPressed:
 				if (event.key.code == sf::Keyboard::Space)
 				{
-					Aiming(pos, upLimit, downLimit, isUp, angleR, canon1);
+					Aiming(pos, upLimit, downLimit, isUp, rangeX, angleR, canon1);
 				}
                 break;
                 
@@ -100,7 +101,7 @@ int main()
 		DrawCanon(canon1, window);
         DrawCanon(canon2, window);
 		
-		MovingBullet(bullet, window);
+		MovingBullet(bullet, rangeX, window);
 
         window.display();
     }

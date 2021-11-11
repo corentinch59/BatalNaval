@@ -35,12 +35,13 @@ void WavesCreator(int a, std::list<sf::CircleShape>& waves, std::list<sf::Circle
 	}
 }
 
-void Aiming(float& pos, float& upLimit, float& downLimit, bool& isUp, float& angleR, Canon& canon)
+void Aiming(float& pos, float& upLimit, float& downLimit, bool& isUp, float& rangeX, float& angleR, Canon& canon)
 {
 		if (pos < upLimit && isUp)
 		{
 			canon.canon.rotate(-angleR);
 			pos += 0.1f;
+			rangeX += 1;
 			if (pos >= upLimit)
 			{
 				isUp = false;
@@ -50,6 +51,7 @@ void Aiming(float& pos, float& upLimit, float& downLimit, bool& isUp, float& ang
 		{
 			canon.canon.rotate(angleR);
 			pos -= 0.1f;
+			rangeX -= 1;
 			if (pos < downLimit)
 			{
 				isUp = true;
@@ -100,16 +102,17 @@ void CreatingBullet(sf::CircleShape& bullet, Canon& canon, bool isUp, float pos,
 	bullet.setPosition(canon.canon.getPosition().x + posX, canon.canon.getPosition().y - posY);
 }
 
-void MovingBullet(sf::CircleShape& bullet, sf::RenderWindow& window) 
+void MovingBullet(sf::CircleShape& bullet, float& rangeX, sf::RenderWindow& window)
 {
+	
 	if (bullet.getPosition().y <= 500.f)
 	{
 		window.draw(bullet);
-		if(bullet.getPosition().x < 600)
+		if(bullet.getPosition().x < rangeX)
 		{
 			bullet.move(sf::Vector2f(0.03f, -0.03f));
 		}
-		else if(bullet.getPosition().x > 600)
+		else if(bullet.getPosition().x > rangeX)
 		{
 			bullet.move(sf::Vector2f(0.03f, 0.03f));
 		}
