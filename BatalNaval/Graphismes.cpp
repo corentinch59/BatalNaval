@@ -140,3 +140,8 @@ void DrawWater(Uwater& water, sf::RenderWindow& window)
 	window.draw(water.water);
 }
 
+void DrawCanon(Canon& canon, sf::RenderWindow& window)
+{
+	window.draw(canon.canon);
+	window.draw(canon.roue);
+}

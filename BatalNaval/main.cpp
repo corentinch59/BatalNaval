@@ -53,13 +53,13 @@ int main()
 
 	WavesCreator(numberOfWaves, wavesEffect, voidEffect);
 	
-    // Game loop
+    //Game loop
     while (window.isOpen()) {
         sf::Event event;
 
         float deltaTime = clock.getElapsedTime().asSeconds();
         
-        //MovingCam(window, view, CameraPos, target, deltaTime);
+        MovingCam(window, view, CameraPos, target, deltaTime);
 
         while (window.pollEvent(event)) {
 
