@@ -37,7 +37,6 @@ void WavesCreator(int a, std::list<sf::CircleShape>& waves, std::list<sf::Circle
 
 void Aiming(float& pos, float& upLimit, float& downLimit, bool& isUp, float& angleR, Canon& canon)
 {
-	
 		if (pos < upLimit && isUp)
 		{
 			canon.canon.rotate(-angleR);
@@ -105,8 +104,15 @@ void MovingBullet(sf::CircleShape& bullet, sf::RenderWindow& window)
 {
 	if (bullet.getPosition().y <= 500.f)
 	{
-		bullet.move(sf::Vector2f(0.01f, 0.0f));
 		window.draw(bullet);
+		if(bullet.getPosition().x < 600)
+		{
+			bullet.move(sf::Vector2f(0.03f, -0.03f));
+		}
+		else if(bullet.getPosition().x > 600)
+		{
+			bullet.move(sf::Vector2f(0.03f, 0.03f));
+		}
 	}
 }
 
