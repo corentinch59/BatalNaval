@@ -33,6 +33,7 @@ int main()
 	Batal player2 = CreateBatal(1300.f, 450.f, 2);
     FlipBatal(player2);
 	Canon canon1 = CreateCanon(player1);
+    Canon canon2 = CreateCanon(player2);
 	Uwater water = CreateWater();
 
     sf::View view;//(sf::Vector2f(350.f, 300.f), sf::Vector2f(300.f, 200.f));
@@ -58,7 +59,7 @@ int main()
 
         float deltaTime = clock.getElapsedTime().asSeconds();
         
-        MovingCam(window, view, CameraPos, target, deltaTime);
+        //MovingCam(window, view, CameraPos, target, deltaTime);
 
         while (window.pollEvent(event)) {
 
@@ -82,7 +83,7 @@ int main()
                     target = Direction(goingLeft, posBatalOne, posBatalTwo);
                     clock.restart();
                     CameraPos = view.getCenter();
-					CreatingBullet(bullet, window);
+					CreatingBullet(bullet,canon1,isUp, pos, window);
                 }
                 break;
 
@@ -97,6 +98,7 @@ int main()
 		DrawBatal(player1, window);
 		DrawBatal(player2, window);
 		DrawCanon(canon1, window);
+        DrawCanon(canon2, window);
 		
 		MovingBullet(bullet, window);
 

@@ -74,23 +74,43 @@ void WavesDrawing(std::list<sf::CircleShape>& wavesEffect, std::list<sf::CircleS
 	}
 }
 
-void CreatingBullet(sf::CircleShape& bullet, sf::RenderWindow& window) 
+void CreatingBullet(sf::CircleShape& bullet, Canon& canon, bool isUp, float pos, sf::RenderWindow& window) 
 {
-	bullet.setRadius(20);
+	float posX = 50.f;
+	float posY = 0;
+
+	//rajouter condition pour que ca marche avec le J2
+
+	if(pos > 0 && !(0.1f < pos < 1))
+	{
+		posY = pos * 15;
+		std::cout << "pos : " << pos << " posY :" << posY << '\n';
+	}
+	else
+	{
+		posY = pos * 9;
+		std::cout << "pos : " << pos << " posY :" << posY << '\n';
+	}
+	if (pos - 1 < 0)
+	{
+		posY += 7;
+	}
+
+	bullet.setRadius(10);
 	bullet.setFillColor(sf::Color::Green);
-	bullet.setPosition(200.f, 300.f);
+	bullet.setPosition(canon.canon.getPosition().x + posX, canon.canon.getPosition().y - posY);
 }
 
 void MovingBullet(sf::CircleShape& bullet, sf::RenderWindow& window) 
 {
 	if (bullet.getPosition().y <= 500.f)
 	{
-		bullet.move(sf::Vector2f(0.01f, 0.01f));
+		bullet.move(sf::Vector2f(0.01f, 0.0f));
 		window.draw(bullet);
 	}
 }
 
-Canon CreateCanon( Batal& player)
+Canon CreateCanon(Batal& player)
 {
 	Canon newCanon;
 	sf::RectangleShape New(sf::Vector2f(70.0f, 20.0f));
@@ -102,12 +122,6 @@ Canon CreateCanon( Batal& player)
 	newCanon.roue.setFillColor(sf::Color::Color(64, 50, 51, 255));
 	newCanon.canon.setOrigin(0, 10);
 	return newCanon;
-}
-
-void DrawCanon(Canon& canon, sf::RenderWindow& window)
-{
-	window.draw(canon.canon);
-	window.draw(canon.roue);
 }
 
 Uwater CreateWater() 
@@ -125,10 +139,4 @@ void DrawWater(Uwater& water, sf::RenderWindow& window)
 {
 	window.draw(water.water);
 }
-
-
-
-
-
-
 
