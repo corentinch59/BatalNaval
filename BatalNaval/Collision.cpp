@@ -41,3 +41,15 @@ bool TestCollision(sf::ConvexShape batal, sf::CircleShape& bullet){
     }
     return false;
 }
+
+
+bool TestWaterCollision(sf::RectangleShape water, sf::CircleShape& bullet) {
+
+    sf::FloatRect boundingBox = water.getGlobalBounds();
+
+    if (boundingBox.contains(bullet.getPosition()))
+    {
+        return true;
+    }
+    return false;
+}

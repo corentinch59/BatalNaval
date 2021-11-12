@@ -3,3 +3,4 @@
 #include "Bullet.h"
 
 bool TestCollision(sf::ConvexShape batal, sf::CircleShape& bullet);
+bool TestWaterCollision(sf::RectangleShape water, sf::CircleShape& bullet);

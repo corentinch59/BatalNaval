@@ -28,7 +28,7 @@ int main()
 	float pos = 0;
 	int numberOfWaves = 13;
 	bool isUp = true;
-    float rangeX = 600;
+    float rangeX = 675;
     bool isPlayer1Turn = true;
 
 	// Initialise everything below
@@ -66,25 +66,59 @@ int main()
     //Game loop
     while (window.isOpen()) {
         sf::Event event;
-
         float deltaTime = clock.getElapsedTime().asSeconds();
         
         MovingCam(window, view, CameraPos, target, deltaTime, cameraIsMoving);
 
         if (!colided)
         {
-            if (p_bullet != nullptr && !TestCollision(player2.hull.hullShape, p_bullet->circlelShape))
+            if (isPlayer1Turn)
             {
-                MovingBullet(*p_bullet, rangeX, window);
+                if (p_bullet != nullptr && !TestCollision(player2.hull.hullShape, p_bullet->circlelShape)){
+                    MovingBullet(*p_bullet, rangeX, !isPlayer1Turn, window);
+                }
+                else {
+
+                    player2.health--;
+                    std::cout << "TOUCHE " << player2.health << '\n';
+
+                    colided = true;
+                    p_bullet = nullptr;
+                    isPlayer1Turn = !isPlayer1Turn;
+                    TestGameOver(player1, player2);
+                }
+
+                if (p_bullet != nullptr && TestWaterCollision(water.water, p_bullet->circlelShape))
+                {
+                    std::cout << "LOUPE" << '\n';
+                    colided = true;
+                    p_bullet = nullptr;
+                    isPlayer1Turn = !isPlayer1Turn;
+                }
             }
             else {
-                colided = true;
-                p_bullet = nullptr;
+                if (p_bullet != nullptr && !TestCollision(player1.hull.hullShape, p_bullet->circlelShape)){
+                    MovingBullet(*p_bullet, rangeX, !isPlayer1Turn, window);
+                }
+                else {
+                    player1.health--;
+                    std::cout << "TOUCHE " << player1.health << '\n';
 
-                player2.health--;
-                std::cout << "TOUCHE " << player2.health << '\n';
-                TestGameOver(player1, player2);
+                    colided = true;
+                    p_bullet = nullptr;
+                    isPlayer1Turn = !isPlayer1Turn;
+                    TestGameOver(player1, player2);
+                }
+
+                if (p_bullet != nullptr && TestWaterCollision(water.water, p_bullet->circlelShape))
+                {
+                    std::cout << "LOUPE" << '\n';
+                    colided = true;
+                    p_bullet = nullptr;
+                    isPlayer1Turn = !isPlayer1Turn;
+                }
             }
+
         }
        
         while (window.pollEvent(event)) {
@@ -111,8 +145,7 @@ int main()
                     CameraPos = view.getCenter();
 
                     p_bullet = new Bullet;
-                    CreatingBullet(bullet, canon1, canon2, pos, isPlayer1Turn, window);
-                    isPlayer1Turn = !isPlayer1Turn;
+                    CreatingBullet(*p_bullet, canon1, canon2, pos, isPlayer1Turn, window);
 
                     colided = false;
                     cameraIsMoving = true;
