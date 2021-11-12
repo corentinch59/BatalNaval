@@ -44,6 +44,7 @@ int main()
     window.setView(view);
 
     bool goingLeft = true;
+    bool cameraIsMoving = false;
 
     sf::Clock clock;
 
@@ -60,9 +61,14 @@ int main()
 
         float deltaTime = clock.getElapsedTime().asSeconds();
         
-        MovingCam(window, view, CameraPos, target, deltaTime);
+        MovingCam(window, view, CameraPos, target, deltaTime, cameraIsMoving);
 
-        TestCollision(player2.hull.hullShape, bullet);
+        if (!TestCollision(player2.hull.hullShape, bullet))
+        {
+            MovingBullet(bullet, rangeX, window);
+        }
+        else std::cout << "estt" << '\n';
+
 
         while (window.pollEvent(event)) {
 
@@ -81,12 +87,13 @@ int main()
                 break;
                 
             case sf::Event::KeyReleased:
-                if (event.key.code == sf::Keyboard::Space)
+                if (event.key.code == sf::Keyboard::Space && !cameraIsMoving)
                 {
                     target = Direction(goingLeft, posBatalOne, posBatalTwo);
                     clock.restart();
                     CameraPos = view.getCenter();
 					CreatingBullet(bullet,canon1,isUp, pos, window);
+                    cameraIsMoving = true;
                 }
                 break;
 
@@ -102,8 +109,8 @@ int main()
 		DrawBatal(player2, window);
 		DrawCanon(canon1, window);
         DrawCanon(canon2, window);
-		
-		MovingBullet(bullet, rangeX, window);
+        window.draw(bullet);
+
 
         window.display();
     }
