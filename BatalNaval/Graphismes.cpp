@@ -110,11 +110,11 @@ void MovingBullet(sf::CircleShape& bullet, float& rangeX, sf::RenderWindow& wind
 		window.draw(bullet);
 		if(bullet.getPosition().x < rangeX)
 		{
-			bullet.move(sf::Vector2f(0.03f, -0.03f));
+			bullet.move(sf::Vector2f(0.3f, -0.3f));
 		}
 		else if(bullet.getPosition().x > rangeX)
 		{
-			bullet.move(sf::Vector2f(0.03f, 0.03f));
+			bullet.move(sf::Vector2f(0.3f, 0.3f));
 		}
 	}
 }

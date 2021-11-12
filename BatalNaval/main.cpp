@@ -62,6 +62,8 @@ int main()
         
         MovingCam(window, view, CameraPos, target, deltaTime);
 
+        TestCollision(player2.hull.hullShape, bullet);
+
         while (window.pollEvent(event)) {
 
             // Process any input event here
