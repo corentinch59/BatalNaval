@@ -94,7 +94,7 @@ Canon CreateCanon(Batal& batal)
 	baseCanon.setOrigin(0, baseCanon.getSize().y / 2);
 	newCanon.base = baseCanon;
 
-	//Construction de la roue du canon
+	// Construction de la roue du canon
 	newCanon.roue.setRadius(8 * batal.scale);
 	newCanon.roue.setPosition(newCanon.base.getPosition().x - newCanon.roue.getRadius(), newCanon.base.getPosition().y - 2 * batal.scale);
 	newCanon.roue.setFillColor(sf::Color::Color(64, 50, 51, 255));

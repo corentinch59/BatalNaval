@@ -38,6 +38,7 @@ struct Canon {
 	Batal* batalAttached;
 };
 
+// Partie Batal
 
 Batal CreateBatal(float x, float y, float scale, float health);
 
@@ -50,6 +51,8 @@ void FlipBatal(Batal& batal);
 void UpdateMastPosition(float x, float y, Batal& batal);
 
 void UpdateSailPosition(float x, float y, Batal& batal);
+
+// Partie Canon
 
 Canon CreateCanon(Batal& batal);
 
