@@ -107,7 +107,7 @@ void MovingBullet(sf::CircleShape& bullet, float& rangeX, sf::RenderWindow& wind
 	
 	if (bullet.getPosition().y <= 500.f)
 	{
-		window.draw(bullet);
+		//window.draw(bullet);
 		if(bullet.getPosition().x < rangeX)
 		{
 			bullet.move(sf::Vector2f(0.3f, -0.3f));

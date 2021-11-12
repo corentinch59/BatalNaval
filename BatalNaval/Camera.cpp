@@ -2,7 +2,7 @@
 #include <SFML/Graphics.hpp>
 
 
-void MovingCam(sf::RenderWindow& window, sf::View& view, sf::Vector2f from, sf::Vector2f to, float deltaTime){
+void MovingCam(sf::RenderWindow& window, sf::View& view, sf::Vector2f from, sf::Vector2f to, float deltaTime, bool& boolToReturn){
     float movingTime = 3.0;
     float ratio = 0.f;
 
@@ -10,9 +10,10 @@ void MovingCam(sf::RenderWindow& window, sf::View& view, sf::Vector2f from, sf::
     {
         //elapsedTime = deltaTime;
         ratio = deltaTime / movingTime;
-	    view.setCenter(Lerp(from, to, ratio));
-	    window.setView(view);
+        view.setCenter(Lerp(from, to, ratio));
+        window.setView(view);
     }
+    else boolToReturn = false;
 }
 
 sf::Vector2f Direction(bool& boolean, sf::Vector2f posOne, sf::Vector2f posTwo) {
