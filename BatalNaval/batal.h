@@ -26,9 +26,10 @@ struct Batal {
 	Sail sail;
 	Position position;
 	float scale;
+	float health;
 };
 
-Batal CreateBatal(float x, float y, float scale);
+Batal CreateBatal(float x, float y, float scale, float health);
 
 void DrawBatal(Batal& batal, sf::RenderWindow& window);
 
