@@ -29,8 +29,7 @@ int main()
 	int numberOfWaves = 13;
 	bool isUp = true;
     float rangeX = 600;
-	bool isFiring = false;
-	bool vrari = true;
+    bool isPlayer1Turn = true;
 
 	// Initialise everything below
 
@@ -39,6 +38,7 @@ int main()
     FlipBatal(player2);
 	Canon canon1 = CreateCanon(player1);
     Canon canon2 = CreateCanon(player2);
+    FlipCanon(player2, canon2);
 	Uwater water = CreateWater();
 
     sf::View view;//(sf::Vector2f(350.f, 300.f), sf::Vector2f(300.f, 200.f));
@@ -69,7 +69,7 @@ int main()
 
         if (!TestCollision(player2.hull.hullShape, bullet.circlelShape))
         {
-            MovingBullet(bullet, rangeX, window);
+            MovingBullet(bullet, rangeX, isPlayer1Turn, window);
         }
         else {
             //destroy bullet
@@ -91,7 +91,7 @@ int main()
             case sf::Event::KeyPressed:
 				if (event.key.code == sf::Keyboard::Space)
 				{
-					Aiming(pos, upLimit, downLimit, isUp, rangeX, angleR, canon1);
+					Aiming(pos, upLimit, downLimit, isUp, rangeX, angleR, isPlayer1Turn, canon1, canon2);
 				}
                 break;
                 
@@ -101,7 +101,8 @@ int main()
                     target = Direction(goingLeft, posBatalOne, posBatalTwo);
                     clock.restart();
                     CameraPos = view.getCenter();
-					CreatingBullet(bullet,canon1, pos, window);
+                    CreatingBullet(bullet, canon1, canon2, pos, isPlayer1Turn, window);
+                    isPlayer1Turn = !isPlayer1Turn;
                     cameraIsMoving = true;
                 }
                 break;

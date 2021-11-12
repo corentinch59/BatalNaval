@@ -35,8 +35,10 @@ void WavesCreator(int a, std::list<sf::CircleShape>& waves, std::list<sf::Circle
 	}
 }
 
-void Aiming(float& pos, float& upLimit, float& downLimit, bool& isUp, float& rangeX, float& angleR, Canon& canon)
+void Aiming(float& pos, float& upLimit, float& downLimit, bool& isUp, float& rangeX, float& angleR, bool& turn, Canon& canon, Canon& canon2)
 {
+	if(turn)
+	{
 		if (pos < upLimit && isUp)
 		{
 			canon.canon.rotate(-angleR);
@@ -57,6 +59,30 @@ void Aiming(float& pos, float& upLimit, float& downLimit, bool& isUp, float& ran
 				isUp = true;
 			}
 		}
+	}
+	if(!turn)
+	{
+		if (pos < upLimit && isUp)
+		{
+			canon2.canon.rotate(-angleR);
+			pos += 0.1f;
+			rangeX += 1;
+			if (pos >= upLimit)
+			{
+				isUp = false;
+			}
+		}
+		else if (pos > downLimit && !isUp)
+		{
+			canon2.canon.rotate(angleR);
+			pos -= 0.1f;
+			rangeX -= 1;
+			if (pos < downLimit)
+			{
+				isUp = true;
+			}
+		}
+	}
 }
 
 void WavesDrawing(std::list<sf::CircleShape>& wavesEffect, std::list<sf::CircleShape>& voidEffect, sf::RenderWindow& window)
@@ -74,7 +100,6 @@ void WavesDrawing(std::list<sf::CircleShape>& wavesEffect, std::list<sf::CircleS
 		it2++;
 	}
 }
-
 
 Canon CreateCanon(Batal& player)
 {
