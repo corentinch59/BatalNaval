@@ -17,6 +17,7 @@ struct Uwater
 Uwater CreateWater();
 void DrawWater(Uwater& water, sf::RenderWindow& window);
 Canon CreateCanon(Batal& player);
+void FlipCanon(Batal& player, Canon& canon);
 void WavesCreator(int a, std::list<sf::CircleShape>& waves, std::list<sf::CircleShape>& voidWaves);
 void Aiming(float& pos, float& upLimit, float& downLimit, bool& isUp, float& rangeX, float& angleR, Canon& canon);
 void WavesDrawing(std::list<sf::CircleShape>& wavesEffect, std::list<sf::CircleShape>& voidEffect, sf::RenderWindow& window);

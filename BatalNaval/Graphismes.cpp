@@ -133,6 +133,12 @@ Canon CreateCanon(Batal& player)
 	return newCanon;
 }
 
+void FlipCanon(Batal& player, Canon& canon) {
+	canon.canon.setScale(-1.0f, 1.0f);
+	canon.canon.setPosition(player.hull.position.x - 170, player.hull.position.y - 20);
+	canon.roue.setPosition(canon.canon.getPosition().x -18, canon.canon.getPosition().y - 8);
+}
+
 Uwater CreateWater() 
 {
 	Uwater water;
