@@ -27,13 +27,13 @@ void CreatingBullet(Bullet& bullet, Canon& canon1, Canon& canon2, float pos, boo
 	bullet.circlelShape.setFillColor(sf::Color::Green);
 	if(turn)
 	{
-		bullet.position.x = canon1.canon.getPosition().x + posX;
-		bullet.position.y = canon1.canon.getPosition().y - posY;
+		bullet.position.x = canon1.base.getPosition().x + posX;
+		bullet.position.y = canon1.base.getPosition().y - posY;
 	}
 	else
 	{
-		bullet.position.x = canon2.canon.getPosition().x - posX;
-		bullet.position.y = canon2.canon.getPosition().y - posY;
+		bullet.position.x = canon2.base.getPosition().x - posX;
+		bullet.position.y = canon2.base.getPosition().y - posY;
 	}
 
 

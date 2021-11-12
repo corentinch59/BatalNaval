@@ -38,7 +38,7 @@ int main()
     FlipBatal(player2);
 	Canon canon1 = CreateCanon(player1);
     Canon canon2 = CreateCanon(player2);
-    FlipCanon(player2, canon2);
+    FlipCanon(canon2);
 	Uwater water = CreateWater();
 
     sf::FloatRect boundingBox = player2.hull.hullShape.getGlobalBounds();

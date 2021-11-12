@@ -31,6 +31,13 @@ struct Batal {
 	float health;
 };
 
+struct Canon {
+	sf::RectangleShape base;
+	sf::CircleShape roue;
+	sf::Vector2f cannonballOrigin;
+	Batal* batalAttached;
+};
+
 
 Batal CreateBatal(float x, float y, float scale, float health);
 
@@ -43,4 +50,12 @@ void FlipBatal(Batal& batal);
 void UpdateMastPosition(float x, float y, Batal& batal);
 
 void UpdateSailPosition(float x, float y, Batal& batal);
+
+Canon CreateCanon(Batal& batal);
+
+void FlipCanon(Canon& canon);
+
+void DrawCanon(Canon& canon, sf::RenderWindow& window);
+
+
 

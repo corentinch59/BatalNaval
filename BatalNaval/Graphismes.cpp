@@ -41,7 +41,7 @@ void Aiming(float& pos, float& upLimit, float& downLimit, bool& isUp, float& ran
 	{
 		if (pos < upLimit && isUp)
 		{
-			canon.canon.rotate(-angleR);
+			canon.base.rotate(-angleR);
 			pos += 0.1f;
 			rangeX += 1;
 			if (pos >= upLimit)
@@ -51,7 +51,7 @@ void Aiming(float& pos, float& upLimit, float& downLimit, bool& isUp, float& ran
 		}
 		else if (pos > downLimit && !isUp)
 		{
-			canon.canon.rotate(angleR);
+			canon.base.rotate(angleR);
 			pos -= 0.1f;
 			rangeX -= 1;
 			if (pos < downLimit)
@@ -64,7 +64,7 @@ void Aiming(float& pos, float& upLimit, float& downLimit, bool& isUp, float& ran
 	{
 		if (pos < upLimit && isUp)
 		{
-			canon2.canon.rotate(-angleR);
+			canon2.base.rotate(-angleR);
 			pos += 0.1f;
 			rangeX += 1;
 			if (pos >= upLimit)
@@ -74,7 +74,7 @@ void Aiming(float& pos, float& upLimit, float& downLimit, bool& isUp, float& ran
 		}
 		else if (pos > downLimit && !isUp)
 		{
-			canon2.canon.rotate(angleR);
+			canon2.base.rotate(angleR);
 			pos -= 0.1f;
 			rangeX -= 1;
 			if (pos < downLimit)
@@ -101,27 +101,6 @@ void WavesDrawing(std::list<sf::CircleShape>& wavesEffect, std::list<sf::CircleS
 	}
 }
 
-Canon CreateCanon(Batal& player)
-{
-	Canon newCanon;
-	sf::RectangleShape New(sf::Vector2f(70.0f, 20.0f));
-	newCanon.canon = New;
-	newCanon.canon.setOrigin(0, 10);
-
-	newCanon.canon.setPosition(player.hull.position.x + 170, player.hull.position.y - 20);
-	newCanon.canon.setFillColor(sf::Color::Color(64, 78, 77, 255));
-	newCanon.roue.setRadius(17);
-	newCanon.roue.setPosition(newCanon.canon.getPosition().x - 7, newCanon.canon.getPosition().y- 8);
-	newCanon.roue.setFillColor(sf::Color::Color(64, 50, 51, 255));
-	return newCanon;
-}
-
-void FlipCanon(Batal& player, Canon& canon) {
-	canon.canon.setScale(-1.0f, 1.0f);
-	canon.canon.setPosition(player.hull.position.x - 170, player.hull.position.y - 20);
-	canon.roue.setPosition(canon.canon.getPosition().x -18, canon.canon.getPosition().y - 8);
-}
-
 Uwater CreateWater() 
 {
 	Uwater water;
@@ -136,10 +115,4 @@ Uwater CreateWater()
 void DrawWater(Uwater& water, sf::RenderWindow& window)
 {
 	window.draw(water.water);
-}
-
-void DrawCanon(Canon& canon, sf::RenderWindow& window)
-{
-	window.draw(canon.canon);
-	window.draw(canon.roue);
 }
