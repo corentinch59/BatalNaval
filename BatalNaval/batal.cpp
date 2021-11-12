@@ -4,13 +4,14 @@
 #include <SFML/Graphics.hpp>
 #include "batal.h"
 
-Batal CreateBatal(float x, float y, float scale)
+Batal CreateBatal(float x, float y, float scale, float health)
 {
 	Batal newBatal;
 
 	newBatal.position.x = x;
 	newBatal.position.y = y;
 	newBatal.scale = scale;
+	newBatal.health = health;
 
 	// Construction de la coque du batal
 	sf::ConvexShape newHull;
