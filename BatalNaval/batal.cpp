@@ -88,18 +88,19 @@ Canon CreateCanon(Batal& batal)
 	Canon newCanon;
 
 	// Construction de la base du canon 
-	sf::RectangleShape baseCanon(sf::Vector2f(100, 100));
-	baseCanon.setPosition(100, 100);
+	sf::RectangleShape baseCanon(sf::Vector2f(35 * batal.scale, 10 * batal.scale));
+	baseCanon.setPosition(batal.hull.hullShape.getPosition().x + 70 * batal.scale, batal.hull.hullShape.getPosition().y - 14 * batal.scale);
 	baseCanon.setFillColor(sf::Color::Red);
-	baseCanon = newCanon.base;
+	baseCanon.setOrigin(0, baseCanon.getSize().y / 2);
+	newCanon.base = baseCanon;
 
 	//Construction de la roue du canon
-	newCanon.roue.setRadius(17);
-	newCanon.roue.setPosition(newCanon.base.getPosition().x, newCanon.base.getPosition().y);
+	newCanon.roue.setRadius(8 * batal.scale);
+	newCanon.roue.setPosition(newCanon.base.getPosition().x - newCanon.roue.getRadius(), newCanon.base.getPosition().y - 2 * batal.scale);
 	newCanon.roue.setFillColor(sf::Color::Color(64, 50, 51, 255));
 
 	// Set de l'embout du canon
-	newCanon.cannonballOrigin = { newCanon.base.getPosition().x , newCanon.base.getPosition().y / 2 };
+	newCanon.cannonballOrigin = { newCanon.base.getSize().x , newCanon.base.getSize().y / 2 };
 
 	// Attachement au batal
 	newCanon.batalAttached = &batal;
@@ -110,7 +111,7 @@ Canon CreateCanon(Batal& batal)
 void FlipCanon(Canon& canon) {
 	canon.base.setScale(-1.0f, 1.0f);
 	canon.base.setPosition(canon.batalAttached->hull.position.x - 170, canon.batalAttached->hull.position.y - 20);
-	canon.roue.setPosition(canon.base.getPosition().x, canon.base.getPosition().y);
+	canon.roue.setPosition(canon.base.getPosition().x - canon.roue.getRadius(), canon.base.getPosition().y - 2 * canon.batalAttached->scale);
 }
 
 void DrawCanon(Canon& canon, sf::RenderWindow& window)

@@ -33,8 +33,8 @@ int main()
 
 	// Initialise everything below
 
-	Batal player1 = CreateBatal(100.f, 450.f, 2, 3);
-	Batal player2 = CreateBatal(1300.f, 450.f, 2, 4);
+	Batal player1 = CreateBatal(100.0f, 450.0f, 2, 3);
+	Batal player2 = CreateBatal(1300.0f, 450.0f, 2, 4);
     FlipBatal(player2);
 	Canon canon1 = CreateCanon(player1);
     Canon canon2 = CreateCanon(player2);
@@ -168,7 +168,6 @@ int main()
         {
             DrawBullet(*p_bullet, window);
         }
-
 
         window.display();
     }
