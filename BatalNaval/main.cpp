@@ -19,8 +19,8 @@ int main()
 	std::list<sf::CircleShape> wavesEffect;
 	std::list<sf::CircleShape> voidEffect;
 
-	//Bullet* p_bullet = new Bullet;
-    Bullet bullet;
+	Bullet* p_bullet = new Bullet;
+
 
 	float angleR = 1.f;
 	float upLimit = 4.f;
@@ -41,6 +41,8 @@ int main()
     Canon canon2 = CreateCanon(player2);
 	Uwater water = CreateWater();
 
+    sf::FloatRect boundingBox = player2.hull.hullShape.getGlobalBounds();
+
     sf::View view;//(sf::Vector2f(350.f, 300.f), sf::Vector2f(300.f, 200.f));
     view.setCenter(sf::Vector2f(400.0f, 300.f));
     view.setSize(sf::Vector2f(800.f, 600.f));
@@ -49,6 +51,8 @@ int main()
 
     bool goingLeft = true;
     bool cameraIsMoving = false;
+    bool colided = false;
+    std::vector<sf::Vector2f> pointVector(5, sf::Vector2f(0,0));
 
     sf::Clock clock;
 
@@ -67,18 +71,22 @@ int main()
         
         MovingCam(window, view, CameraPos, target, deltaTime, cameraIsMoving);
 
-        if (!TestCollision(player2.hull.hullShape, bullet.circlelShape))
+        if (!colided)
         {
-            MovingBullet(bullet, rangeX, window);
-        }
-        else {
-            //destroy bullet
-            player2.health--;
-            bullet.circlelShape.setPosition(sf::Vector2f(0.f, 0.f)); // c'est la plus grosse douille de ma vie 
-            std::cout << player2.health << '\n';
-            TestGameOver(player1, player2);
-        }
+            if (p_bullet != nullptr && !TestCollision(player2.hull.hullShape, p_bullet->circlelShape))
+            {
+                MovingBullet(*p_bullet, rangeX, window);
+            }
+            else {
+                colided = true;
+                p_bullet = nullptr;
 
+                player2.health--;
+                std::cout << "TOUCHE " << player2.health << '\n';
+                TestGameOver(player1, player2);
+            }
+        }
+       
         while (window.pollEvent(event)) {
 
             // Process any input event here
@@ -101,7 +109,10 @@ int main()
                     target = Direction(goingLeft, posBatalOne, posBatalTwo);
                     clock.restart();
                     CameraPos = view.getCenter();
-					CreatingBullet(bullet,canon1, pos, window);
+
+                    p_bullet = new Bullet;
+					CreatingBullet(*p_bullet, canon1, pos, window);
+                    colided = false;
                     cameraIsMoving = true;
                 }
                 break;
@@ -118,9 +129,10 @@ int main()
 		DrawBatal(player2, window);
 		DrawCanon(canon1, window);
         DrawCanon(canon2, window);
-        DrawBullet(bullet, window);
-
-        
+        if (p_bullet != nullptr)
+        {
+            DrawBullet(*p_bullet, window);
+        }
 
 
         window.display();
