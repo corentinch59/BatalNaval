@@ -152,16 +152,20 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="batal.cpp" />
+    <ClCompile Include="Bullet.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Collision.cpp" />
+    <ClCompile Include="GameOver.cpp" />
     <ClCompile Include="Graphismes.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Math.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="batal.h" />
+    <ClInclude Include="Bullet.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Collision.h" />
+    <ClInclude Include="GameOver.h" />
     <ClInclude Include="Graphismes.h" />
     <ClInclude Include="Math.h" />
   </ItemGroup>

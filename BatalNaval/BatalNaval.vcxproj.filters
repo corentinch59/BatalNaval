@@ -31,6 +31,12 @@
     <Filter Include="Fichiers sources\Math">
       <UniqueIdentifier>{5f91f64a-f7da-4c3e-aa26-83e9b65c4fc8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Fichiers sources\GameOver">
+      <UniqueIdentifier>{0a4527e1-12df-4ec5-966d-94de7b5dabdc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers sources\Bullet">
+      <UniqueIdentifier>{0aff17fd-5950-44fb-83fb-4f447354cb8d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -51,6 +57,12 @@
     <ClCompile Include="Math.cpp">
       <Filter>Fichiers sources\Math</Filter>
     </ClCompile>
+    <ClCompile Include="GameOver.cpp">
+      <Filter>Fichiers sources\GameOver</Filter>
+    </ClCompile>
+    <ClCompile Include="Bullet.cpp">
+      <Filter>Fichiers sources\Bullet</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Graphismes.h">
@@ -67,6 +79,12 @@
     </ClInclude>
     <ClInclude Include="Math.h">
       <Filter>Fichiers sources\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="GameOver.h">
+      <Filter>Fichiers sources\GameOver</Filter>
+    </ClInclude>
+    <ClInclude Include="Bullet.h">
+      <Filter>Fichiers sources\Bullet</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

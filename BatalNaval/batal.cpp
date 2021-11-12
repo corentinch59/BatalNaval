@@ -1,8 +1,8 @@
-
 #include <string>
 #include <iostream>
 #include <SFML/Graphics.hpp>
 #include "batal.h"
+
 
 Batal CreateBatal(float x, float y, float scale, float health)
 {
@@ -82,3 +82,5 @@ void UpdateSailPosition(float x, float y, Batal& batal) {
 	sf::Vector2f sailpos = batal.sail.sailShape.getPosition();
 	batal.sail.position = { sailpos.x, sailpos.y };
 }
+
+

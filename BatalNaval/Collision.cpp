@@ -1,8 +1,7 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
-#include <Cmath>
 
-bool TestCollision(sf::ConvexShape batal, sf::CircleShape& bullet) {
+bool TestCollision(sf::ConvexShape batal, sf::CircleShape& bullet){
 
     bullet.setOrigin(sf::Vector2f(bullet.getRadius() / 2, bullet.getRadius() / 2));
 

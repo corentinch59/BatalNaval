@@ -5,6 +5,9 @@
 #include "batal.h"
 #include "Graphismes.h"
 #include "Collision.h"
+#include "GameOver.h"
+#include "Bullet.h"
+
 
 int main()
 {
@@ -16,7 +19,8 @@ int main()
 	std::list<sf::CircleShape> wavesEffect;
 	std::list<sf::CircleShape> voidEffect;
 
-	sf::CircleShape bullet;
+	//Bullet* p_bullet = new Bullet;
+    Bullet bullet;
 
 	float angleR = 1.f;
 	float upLimit = 4.f;
@@ -30,8 +34,8 @@ int main()
 
 	// Initialise everything below
 
-	Batal player1 = CreateBatal(100.f, 450.f, 2);
-	Batal player2 = CreateBatal(1300.f, 450.f, 2);
+	Batal player1 = CreateBatal(100.f, 450.f, 2, 3);
+	Batal player2 = CreateBatal(1300.f, 450.f, 2, 4);
     FlipBatal(player2);
 	Canon canon1 = CreateCanon(player1);
     Canon canon2 = CreateCanon(player2);
@@ -63,12 +67,17 @@ int main()
         
         MovingCam(window, view, CameraPos, target, deltaTime, cameraIsMoving);
 
-        if (!TestCollision(player2.hull.hullShape, bullet))
+        if (!TestCollision(player2.hull.hullShape, bullet.circlelShape))
         {
             MovingBullet(bullet, rangeX, window);
         }
-        else std::cout << "estt" << '\n';
-
+        else {
+            //destroy bullet
+            player2.health--;
+            bullet.circlelShape.setPosition(sf::Vector2f(0.f, 0.f)); // c'est la plus grosse douille de ma vie 
+            std::cout << player2.health << '\n';
+            TestGameOver(player1, player2);
+        }
 
         while (window.pollEvent(event)) {
 
@@ -92,7 +101,7 @@ int main()
                     target = Direction(goingLeft, posBatalOne, posBatalTwo);
                     clock.restart();
                     CameraPos = view.getCenter();
-					CreatingBullet(bullet,canon1,isUp, pos, window);
+					CreatingBullet(bullet,canon1, pos, window);
                     cameraIsMoving = true;
                 }
                 break;
@@ -109,7 +118,9 @@ int main()
 		DrawBatal(player2, window);
 		DrawCanon(canon1, window);
         DrawCanon(canon2, window);
-        window.draw(bullet);
+        DrawBullet(bullet, window);
+
+        
 
 
         window.display();

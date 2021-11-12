@@ -1,4 +1,6 @@
 #pragma once
+#include <SFML/Graphics.hpp>
+
 
 struct Position {
 	float x;
@@ -29,6 +31,7 @@ struct Batal {
 	float health;
 };
 
+
 Batal CreateBatal(float x, float y, float scale, float health);
 
 void DrawBatal(Batal& batal, sf::RenderWindow& window);
@@ -40,3 +43,4 @@ void FlipBatal(Batal& batal);
 void UpdateMastPosition(float x, float y, Batal& batal);
 
 void UpdateSailPosition(float x, float y, Batal& batal);
+
