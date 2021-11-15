@@ -35,7 +35,7 @@ void WavesCreator(int a, std::list<sf::CircleShape>& waves, std::list<sf::Circle
 	}
 }
 
-void Aiming(float& pos, float& upLimit, float& downLimit, bool& isUp, float& rangeX, float& angleR, bool& turn, Canon& canon, Canon& canon2)
+void Aiming(float& pos, float& upLimit, float& downLimit, bool& isUp, float& angleR, bool& turn, Canon& canon, Canon& canon2)
 {
 	if(turn)
 	{
@@ -43,7 +43,6 @@ void Aiming(float& pos, float& upLimit, float& downLimit, bool& isUp, float& ran
 		{
 			canon.base.rotate(-angleR);
 			pos += 0.1f;
-			rangeX += 1;
 			if (pos >= upLimit)
 			{
 				isUp = false;
@@ -53,7 +52,6 @@ void Aiming(float& pos, float& upLimit, float& downLimit, bool& isUp, float& ran
 		{
 			canon.base.rotate(angleR);
 			pos -= 0.1f;
-			rangeX -= 1;
 			if (pos < downLimit)
 			{
 				isUp = true;
@@ -66,7 +64,6 @@ void Aiming(float& pos, float& upLimit, float& downLimit, bool& isUp, float& ran
 		{
 			canon2.base.rotate(-angleR);
 			pos += 0.1f;
-			rangeX += 1;
 			if (pos >= upLimit)
 			{
 				isUp = false;
@@ -76,7 +73,6 @@ void Aiming(float& pos, float& upLimit, float& downLimit, bool& isUp, float& ran
 		{
 			canon2.base.rotate(angleR);
 			pos -= 0.1f;
-			rangeX -= 1;
 			if (pos < downLimit)
 			{
 				isUp = true;

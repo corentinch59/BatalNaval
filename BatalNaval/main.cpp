@@ -28,7 +28,6 @@ int main()
 	float pos = 0;
 	int numberOfWaves = 13;
 	bool isUp = true;
-    float rangeX = 675;
     bool isPlayer1Turn = true;
 
 	// Initialise everything below
@@ -60,7 +59,7 @@ int main()
     sf::Vector2f posBatalTwo = sf::Vector2f(1000.0f, player1.position.y - 150.f);
     sf::Vector2f target = posBatalOne;
     sf::Vector2f CameraPos = view.getCenter();
-    sf::Vector2f startVelo(0, -40.f);
+    sf::Vector2f startVelo(0, -150.f);
 
 	WavesCreator(numberOfWaves, wavesEffect, voidEffect);
 	
@@ -74,7 +73,7 @@ int main()
         if (!colided){
             if (isPlayer1Turn){
                 //test collision avec le player2
-                if (OnCollision(isPlayer1Turn, p_bullet, player2, water, deltaTime, window, startVelo) || TestWaterCollision(water.water, p_bullet->circlelShape)) {
+                if (OnCollision(isPlayer1Turn, p_bullet, player2, water, deltaTime, window, startVelo, clock) || TestWaterCollision(water.water, p_bullet->circlelShape)) {
                     colided = true;
                     p_bullet = nullptr;
                     isPlayer1Turn = !isPlayer1Turn;
@@ -83,7 +82,7 @@ int main()
             }
             else {
                 //test collision avec le player1
-                if (OnCollision(isPlayer1Turn, p_bullet, player2, water, deltaTime, window, startVelo) || TestWaterCollision(water.water, p_bullet->circlelShape)) {
+                if (OnCollision(isPlayer1Turn, p_bullet, player2, water, deltaTime, window, startVelo, clock) || TestWaterCollision(water.water, p_bullet->circlelShape)) {
                     colided = true;
                     p_bullet = nullptr;
                     isPlayer1Turn = !isPlayer1Turn;
@@ -104,7 +103,7 @@ int main()
             case sf::Event::KeyPressed:
 				if (event.key.code == sf::Keyboard::Space)
 				{
-					Aiming(pos, upLimit, downLimit, isUp, rangeX, angleR, isPlayer1Turn, canon1, canon2);
+					Aiming(pos, upLimit, downLimit, isUp, angleR, isPlayer1Turn, canon1, canon2);
 				}
                 break;
                 
@@ -121,7 +120,7 @@ int main()
                     colided = false;
                     cameraIsMoving = true;
                 }
-                startVelo.y = -40.f;
+                startVelo.y = -150.f;
                 break;
 
             default: break;
