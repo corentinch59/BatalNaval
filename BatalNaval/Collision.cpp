@@ -1,5 +1,6 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
+#include "Bullet.h"
 
 bool TestCollision(sf::ConvexShape batal, sf::CircleShape& bullet){
     bullet.setOrigin(sf::Vector2f(bullet.getRadius() / 2, bullet.getRadius() / 2));
@@ -41,3 +42,36 @@ bool TestCollision(sf::ConvexShape batal, sf::CircleShape& bullet){
     }
     return false;
 }
+
+
+bool TestWaterCollision(sf::RectangleShape water, sf::CircleShape& bullet) {
+
+    sf::FloatRect boundingBox = water.getGlobalBounds();
+
+    if (boundingBox.contains(bullet.getPosition()))
+    {
+        return true;
+    }
+    return false;
+}
+
+//void OnCollision(bool& playerTurn, Bullet* p_bullet,Batal player1, Batal player2, float rangeX, sf::RenderWindow& window) {
+//
+//
+//    if (playerTurn)
+//    {
+//        if (p_bullet != nullptr && !TestCollision(player2.hull.hullShape, p_bullet->circlelShape)) {
+//            MovingBullet(*p_bullet, rangeX, !playerTurn, window);
+//        }
+//        else {
+//
+//            player2.health--;
+//            std::cout << "TOUCHE " << player2.health << '\n';
+//
+//            colided = true;
+//            p_bullet = nullptr;
+//            playerTurn = !playerTurn;
+//            TestGameOver(player1, player2);
+//        }
+//    }
+//}

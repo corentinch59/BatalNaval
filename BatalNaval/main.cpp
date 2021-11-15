@@ -4,9 +4,9 @@
 #include "Camera.h"
 #include "batal.h"
 #include "Graphismes.h"
+#include "Bullet.h"
 #include "Collision.h"
 #include "GameOver.h"
-#include "Bullet.h"
 
 
 int main()
