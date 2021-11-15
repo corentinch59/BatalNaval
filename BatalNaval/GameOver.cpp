@@ -1,8 +1,6 @@
 #include <iostream>
 #include "GameOver.h"
 
-
-
 void TestGameOver(Batal playerOne, Batal playerTwo, bool& isGameOver){
 	if (playerOne.health <= 0)
 	{
