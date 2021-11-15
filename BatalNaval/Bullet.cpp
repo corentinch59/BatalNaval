@@ -1,7 +1,7 @@
 #include "Bullet.h"
 #include <iostream>
 
-void CreatingBullet(Bullet& bullet, Canon& canon, float pos, sf::RenderWindow& window)
+void CreatingBullet(Bullet& bullet, Canon& canon1, Canon& canon2, float pos, bool turn, sf::RenderWindow& window)
 {
 	float posX = 50.f;
 	float posY = 0;
@@ -25,8 +25,17 @@ void CreatingBullet(Bullet& bullet, Canon& canon, float pos, sf::RenderWindow& w
 
 	bullet.circlelShape.setRadius(10);
 	bullet.circlelShape.setFillColor(sf::Color::Green);
-	bullet.position.x = canon.canon.getPosition().x + posX;
-	bullet.position.y = canon.canon.getPosition().y - posY;
+	if(turn)
+	{
+		bullet.position.x = canon1.base.getPosition().x + posX;
+		bullet.position.y = canon1.base.getPosition().y - posY;
+	}
+	else
+	{
+		bullet.position.x = canon2.base.getPosition().x - posX;
+		bullet.position.y = canon2.base.getPosition().y - posY;
+	}
+
 
 	bullet.circlelShape.setPosition(bullet.position.x, bullet.position.y);
 	bullet.speed = 0.3f;
@@ -37,11 +46,11 @@ void DrawBullet(Bullet& bullet, sf::RenderWindow& window) {
 	window.draw(bullet.circlelShape);
 }
 
-void MovingBullet(Bullet& bullet, float& rangeX, sf::RenderWindow& window)
+void MovingBullet(Bullet& bullet, float& rangeX, bool turn, sf::RenderWindow& window)
 {
-	if (bullet.circlelShape.getPosition().y <= 500.f)
+
+	if(!turn)
 	{
-		//window.draw(bullet);
 		if (bullet.circlelShape.getPosition().x < rangeX)
 		{
 			bullet.circlelShape.move(sf::Vector2f(bullet.speed, -bullet.speed));
@@ -49,6 +58,17 @@ void MovingBullet(Bullet& bullet, float& rangeX, sf::RenderWindow& window)
 		else if (bullet.circlelShape.getPosition().x > rangeX)
 		{
 			bullet.circlelShape.move(sf::Vector2f(bullet.speed, bullet.speed));
+		}
+	}
+	else
+	{
+		if (bullet.circlelShape.getPosition().x > rangeX)
+		{
+			bullet.circlelShape.move(sf::Vector2f(-bullet.speed, -bullet.speed));
+		}
+		else if (bullet.circlelShape.getPosition().x < rangeX)
+		{
+			bullet.circlelShape.move(sf::Vector2f(-bullet.speed, bullet.speed));
 		}
 	}
 }

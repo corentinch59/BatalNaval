@@ -75,3 +75,5 @@ bool TestWaterCollision(sf::RectangleShape water, sf::CircleShape& bullet) {
 //        }
 //    }
 //}
+}
+

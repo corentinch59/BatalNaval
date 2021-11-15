@@ -28,9 +28,8 @@ int main()
 	float pos = 0;
 	int numberOfWaves = 13;
 	bool isUp = true;
-    float rangeX = 600;
-	bool isFiring = false;
-	bool vrari = true;
+    float rangeX = 675;
+    bool isPlayer1Turn = true;
 
 	// Initialise everything below
 
@@ -39,6 +38,7 @@ int main()
     FlipBatal(player2);
 	Canon canon1 = CreateCanon(player1);
     Canon canon2 = CreateCanon(player2);
+    FlipCanon(canon2);
 	Uwater water = CreateWater();
 
     sf::FloatRect boundingBox = player2.hull.hullShape.getGlobalBounds();
@@ -66,25 +66,59 @@ int main()
     //Game loop
     while (window.isOpen()) {
         sf::Event event;
-
         float deltaTime = clock.getElapsedTime().asSeconds();
         
         MovingCam(window, view, CameraPos, target, deltaTime, cameraIsMoving);
 
         if (!colided)
         {
-            if (p_bullet != nullptr && !TestCollision(player2.hull.hullShape, p_bullet->circlelShape))
+            if (isPlayer1Turn)
             {
-                MovingBullet(*p_bullet, rangeX, window);
+                if (p_bullet != nullptr && !TestCollision(player2.hull.hullShape, p_bullet->circlelShape)){
+                    MovingBullet(*p_bullet, rangeX, !isPlayer1Turn, window);
+                }
+                else {
+
+                    player2.health--;
+                    std::cout << "TOUCHE " << player2.health << '\n';
+
+                    colided = true;
+                    p_bullet = nullptr;
+                    isPlayer1Turn = !isPlayer1Turn;
+                    TestGameOver(player1, player2);
+                }
+
+                if (p_bullet != nullptr && TestWaterCollision(water.water, p_bullet->circlelShape))
+                {
+                    std::cout << "LOUPE" << '\n';
+                    colided = true;
+                    p_bullet = nullptr;
+                    isPlayer1Turn = !isPlayer1Turn;
+                }
             }
             else {
-                colided = true;
-                p_bullet = nullptr;
+                if (p_bullet != nullptr && !TestCollision(player1.hull.hullShape, p_bullet->circlelShape)){
+                    MovingBullet(*p_bullet, rangeX, !isPlayer1Turn, window);
+                }
+                else {
+                    player1.health--;
+                    std::cout << "TOUCHE " << player1.health << '\n';
 
-                player2.health--;
-                std::cout << "TOUCHE " << player2.health << '\n';
-                TestGameOver(player1, player2);
+                    colided = true;
+                    p_bullet = nullptr;
+                    isPlayer1Turn = !isPlayer1Turn;
+                    TestGameOver(player1, player2);
+                }
+
+                if (p_bullet != nullptr && TestWaterCollision(water.water, p_bullet->circlelShape))
+                {
+                    std::cout << "LOUPE" << '\n';
+                    colided = true;
+                    p_bullet = nullptr;
+                    isPlayer1Turn = !isPlayer1Turn;
+                }
             }
+
         }
        
         while (window.pollEvent(event)) {
@@ -99,7 +133,7 @@ int main()
             case sf::Event::KeyPressed:
 				if (event.key.code == sf::Keyboard::Space)
 				{
-					Aiming(pos, upLimit, downLimit, isUp, rangeX, angleR, canon1);
+					Aiming(pos, upLimit, downLimit, isUp, rangeX, angleR, isPlayer1Turn, canon1, canon2);
 				}
                 break;
                 
@@ -111,7 +145,8 @@ int main()
                     CameraPos = view.getCenter();
 
                     p_bullet = new Bullet;
-					CreatingBullet(*p_bullet, canon1, pos, window);
+                    CreatingBullet(*p_bullet, canon1, canon2, pos, isPlayer1Turn, window);
+
                     colided = false;
                     cameraIsMoving = true;
                 }
