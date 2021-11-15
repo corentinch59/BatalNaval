@@ -60,6 +60,7 @@ int main()
     sf::Vector2f posBatalTwo = sf::Vector2f(1000.0f, player1.position.y - 150.f);
     sf::Vector2f target = posBatalOne;
     sf::Vector2f CameraPos = view.getCenter();
+    sf::Vector2f startVelo(0, -40.f);
 
 	WavesCreator(numberOfWaves, wavesEffect, voidEffect);
 	
@@ -73,7 +74,7 @@ int main()
         if (!colided){
             if (isPlayer1Turn){
                 //test collision avec le player2
-                if (OnCollision(isPlayer1Turn, p_bullet, player2, water, rangeX, window) || TestWaterCollision(water.water, p_bullet->circlelShape)) {
+                if (OnCollision(isPlayer1Turn, p_bullet, player2, water, deltaTime, window, startVelo) || TestWaterCollision(water.water, p_bullet->circlelShape)) {
                     colided = true;
                     p_bullet = nullptr;
                     isPlayer1Turn = !isPlayer1Turn;
@@ -82,7 +83,7 @@ int main()
             }
             else {
                 //test collision avec le player1
-                if (OnCollision(isPlayer1Turn, p_bullet, player1, water, rangeX, window) || TestWaterCollision(water.water, p_bullet->circlelShape)) {
+                if (OnCollision(isPlayer1Turn, p_bullet, player2, water, deltaTime, window, startVelo) || TestWaterCollision(water.water, p_bullet->circlelShape)) {
                     colided = true;
                     p_bullet = nullptr;
                     isPlayer1Turn = !isPlayer1Turn;
@@ -120,6 +121,7 @@ int main()
                     colided = false;
                     cameraIsMoving = true;
                 }
+                startVelo.y = -40.f;
                 break;
 
             default: break;

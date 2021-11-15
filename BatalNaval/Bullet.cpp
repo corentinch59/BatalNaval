@@ -46,29 +46,49 @@ void DrawBullet(Bullet& bullet, sf::RenderWindow& window) {
 	window.draw(bullet.circlelShape);
 }
 
-void MovingBullet(Bullet& bullet, float& rangeX, bool turn, sf::RenderWindow& window)
+void MovingBullet(Bullet& bullet, float time, bool turn, sf::Vector2f& startVelo)
 {
+    float gravityScale = 0.07f;
+    const float t = 0.5f;
+    const float maxHeight = 0.09f;
+    const float minHeight = -0.09f;
+    const float smallerValue = 0.01f;
 
-	if(!turn)
-	{
-		if (bullet.circlelShape.getPosition().x < rangeX)
-		{
-			bullet.circlelShape.move(sf::Vector2f(bullet.speed, -bullet.speed));
-		}
-		else if (bullet.circlelShape.getPosition().x > rangeX)
-		{
-			bullet.circlelShape.move(sf::Vector2f(bullet.speed, bullet.speed));
-		}
-	}
-	else
-	{
-		if (bullet.circlelShape.getPosition().x > rangeX)
-		{
-			bullet.circlelShape.move(sf::Vector2f(-bullet.speed, -bullet.speed));
-		}
-		else if (bullet.circlelShape.getPosition().x < rangeX)
-		{
-			bullet.circlelShape.move(sf::Vector2f(-bullet.speed, bullet.speed));
-		}
-	}
+    sf::Vector2f pos(0.2f, 0);
+    sf::Vector2f gravity{ 0, gravityScale };
+
+
+    if (!turn)
+    {
+        startVelo.y = startVelo.y + gravity.y * t;
+        pos.y += startVelo.y * t;
+        pos.y *= smallerValue;
+
+        if (pos.y >= maxHeight)
+        {
+            pos.y = maxHeight;
+        }
+        else if (pos.y <= minHeight)
+        {
+            pos.y = minHeight;
+        }
+    }
+    else
+    {
+        pos.x *= -1;
+        startVelo.y = startVelo.y + gravity.y * t;
+        pos.y += startVelo.y * t;
+        pos.y *= smallerValue;
+
+        if (pos.y >= maxHeight)
+        {
+            pos.y = maxHeight;
+        }
+        else if (pos.y <= minHeight)
+        {
+            pos.y = minHeight;
+        }
+    }
+
+    bullet.circlelShape.move(pos);
 }
