@@ -1,6 +1,6 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
-#include "Bullet.h"
+#include "Collision.h"
 
 bool TestCollision(sf::ConvexShape batal, sf::CircleShape& bullet){
     bullet.setOrigin(sf::Vector2f(bullet.getRadius() / 2, bullet.getRadius() / 2));
@@ -55,25 +55,22 @@ bool TestWaterCollision(sf::RectangleShape water, sf::CircleShape& bullet) {
     return false;
 }
 
-//void OnCollision(bool& playerTurn, Bullet* p_bullet,Batal player1, Batal player2, float rangeX, sf::RenderWindow& window) {
-//
-//
-//    if (playerTurn)
-//    {
-//        if (p_bullet != nullptr && !TestCollision(player2.hull.hullShape, p_bullet->circlelShape)) {
-//            MovingBullet(*p_bullet, rangeX, !playerTurn, window);
-//        }
-//        else {
-//
-//            player2.health--;
-//            std::cout << "TOUCHE " << player2.health << '\n';
-//
-//            colided = true;
-//            p_bullet = nullptr;
-//            playerTurn = !playerTurn;
-//            TestGameOver(player1, player2);
-//        }
-//    }
-//}
-}
+bool OnCollision(bool playerTurn, Bullet* p_bullet, Batal& player, Uwater water,  float rangeX, sf::RenderWindow& window) {
 
+    if (p_bullet != nullptr && !TestCollision(player.hull.hullShape, p_bullet->circlelShape)) {
+        MovingBullet(*p_bullet, rangeX, !playerTurn, window);
+        return false;
+    }
+    else {
+
+        player.health--;
+        std::cout << "TOUCHE " << player.health << '\n';
+        return true;
+    }
+    //if (p_bullet != nullptr && TestWaterCollision(water.water, p_bullet->circlelShape))
+    //{
+    //    std::cout << "LOUPE" << '\n';
+    //    return true;
+    //}
+    return false;
+}

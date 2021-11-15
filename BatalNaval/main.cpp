@@ -70,55 +70,25 @@ int main()
         
         MovingCam(window, view, CameraPos, target, deltaTime, cameraIsMoving);
 
-        if (!colided)
-        {
-            if (isPlayer1Turn)
-            {
-                if (p_bullet != nullptr && !TestCollision(player2.hull.hullShape, p_bullet->circlelShape)){
-                    MovingBullet(*p_bullet, rangeX, !isPlayer1Turn, window);
-                }
-                else {
-
-                    player2.health--;
-                    std::cout << "TOUCHE " << player2.health << '\n';
-
+        if (!colided){
+            if (isPlayer1Turn){
+                //test collision avec le player2
+                if (OnCollision(isPlayer1Turn, p_bullet, player2, water, rangeX, window) || TestWaterCollision(water.water, p_bullet->circlelShape)) {
                     colided = true;
                     p_bullet = nullptr;
                     isPlayer1Turn = !isPlayer1Turn;
                     TestGameOver(player1, player2);
-                }
-
-                if (p_bullet != nullptr && TestWaterCollision(water.water, p_bullet->circlelShape))
-                {
-                    std::cout << "LOUPE" << '\n';
-                    colided = true;
-                    p_bullet = nullptr;
-                    isPlayer1Turn = !isPlayer1Turn;
                 }
             }
             else {
-                if (p_bullet != nullptr && !TestCollision(player1.hull.hullShape, p_bullet->circlelShape)){
-                    MovingBullet(*p_bullet, rangeX, !isPlayer1Turn, window);
-                }
-                else {
-                    player1.health--;
-                    std::cout << "TOUCHE " << player1.health << '\n';
-
+                //test collision avec le player1
+                if (OnCollision(isPlayer1Turn, p_bullet, player1, water, rangeX, window) || TestWaterCollision(water.water, p_bullet->circlelShape)) {
                     colided = true;
                     p_bullet = nullptr;
                     isPlayer1Turn = !isPlayer1Turn;
                     TestGameOver(player1, player2);
                 }
-
-                if (p_bullet != nullptr && TestWaterCollision(water.water, p_bullet->circlelShape))
-                {
-                    std::cout << "LOUPE" << '\n';
-                    colided = true;
-                    p_bullet = nullptr;
-                    isPlayer1Turn = !isPlayer1Turn;
-                }
             }
-
         }
        
         while (window.pollEvent(event)) {
