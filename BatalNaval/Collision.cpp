@@ -67,10 +67,4 @@ bool OnCollision(bool playerTurn, Bullet* p_bullet, Batal& player, Uwater water,
         std::cout << "TOUCHE " << player.health << '\n';
         return true;
     }
-    //if (p_bullet != nullptr && TestWaterCollision(water.water, p_bullet->circlelShape))
-    //{
-    //    std::cout << "LOUPE" << '\n';
-    //    return true;
-    //}
-    return false;
 }

@@ -63,6 +63,9 @@
     <ClCompile Include="Bullet.cpp">
       <Filter>Fichiers sources\Bullet</Filter>
     </ClCompile>
+    <ClCompile Include="Path.cpp">
+      <Filter>Fichiers sources\GameOver</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Graphismes.h">
@@ -85,6 +88,9 @@
     </ClInclude>
     <ClInclude Include="Bullet.h">
       <Filter>Fichiers sources\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="Path.h">
+      <Filter>Fichiers sources\GameOver</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

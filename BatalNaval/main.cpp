@@ -2,7 +2,6 @@
 #include <SFML/Graphics.hpp>
 #include "Math.h"
 #include "Camera.h"
-#include "batal.h"
 #include "Graphismes.h"
 #include "Bullet.h"
 #include "Collision.h"
@@ -21,7 +20,6 @@ int main()
 
 	Bullet* p_bullet = new Bullet;
 
-
 	float angleR = 1.f;
 	float upLimit = 4.f;
 	float downLimit = -2.2f;
@@ -30,6 +28,7 @@ int main()
 	bool isUp = true;
     float rangeX = 675;
     bool isPlayer1Turn = true;
+    bool isGameOver= false;
 
 	// Initialise everything below
 
@@ -62,6 +61,15 @@ int main()
     sf::Vector2f CameraPos = view.getCenter();
 
 	WavesCreator(numberOfWaves, wavesEffect, voidEffect);
+
+
+    sf::Font font;
+    font.loadFromFile(getAssetsPath() + "\\arial.ttf");
+
+    GameOverTxt gameOvertxts = CreateGameOver();
+    gameOvertxts.GameOver.setFont(font);
+    gameOvertxts.Replay.setFont(font);
+    gameOvertxts.PlayerName.setFont(font);
 	
     //Game loop
     while (window.isOpen()) {
@@ -77,7 +85,7 @@ int main()
                     colided = true;
                     p_bullet = nullptr;
                     isPlayer1Turn = !isPlayer1Turn;
-                    TestGameOver(player1, player2);
+                    TestGameOver(player1, player2, isGameOver);
                 }
             }
             else {
@@ -86,9 +94,15 @@ int main()
                     colided = true;
                     p_bullet = nullptr;
                     isPlayer1Turn = !isPlayer1Turn;
-                    TestGameOver(player1, player2);
+                    TestGameOver(player1, player2, isGameOver);
                 }
             }
+        }       
+
+
+        if (isGameOver)
+        {
+            DisplayGameOver(player1, gameOvertxts, view);
         }
        
         while (window.pollEvent(event)) {
@@ -101,14 +115,14 @@ int main()
                 break;
 
             case sf::Event::KeyPressed:
-				if (event.key.code == sf::Keyboard::Space)
+				if (event.key.code == sf::Keyboard::Space && !isGameOver)
 				{
 					Aiming(pos, upLimit, downLimit, isUp, rangeX, angleR, isPlayer1Turn, canon1, canon2);
 				}
                 break;
                 
             case sf::Event::KeyReleased:
-                if (event.key.code == sf::Keyboard::Space && !cameraIsMoving)
+                if (event.key.code == sf::Keyboard::Space && !cameraIsMoving && !isGameOver)
                 {
                     target = Direction(goingLeft, posBatalOne, posBatalTwo);
                     clock.restart();
@@ -138,6 +152,7 @@ int main()
         {
             DrawBullet(*p_bullet, window);
         }
+        DrawGameOver(gameOvertxts, window);
 
         window.display();
     }

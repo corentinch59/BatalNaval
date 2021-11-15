@@ -1,8 +1,6 @@
 #include "Math.h"
 #include <SFML/Graphics.hpp>
 
-
-
 void MovingCam(sf::RenderWindow& window, sf::View& view, sf::Vector2f from, sf::Vector2f to, float deltaTime, bool& boolToReturn){
     float movingTime = 2.0;
     float ratio = 0.f;

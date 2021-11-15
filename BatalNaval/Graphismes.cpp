@@ -116,3 +116,36 @@ void DrawWater(Uwater& water, sf::RenderWindow& window)
 {
 	window.draw(water.water);
 }
+
+GameOverTxt CreateGameOver() {
+	GameOverTxt txts;
+
+	//txts.GameOver.setString("GAME OVER");
+	//txts.Replay.setString("Press R to replay");
+
+	txts.GameOver.setScale(2, 2);
+	//txts.Replay.setScale(0, 0);
+
+	return txts;
+}
+
+void DisplayGameOver(Batal player1, GameOverTxt& txts, sf::View view) {
+	txts.GameOver.setString("GAME OVER");
+	txts.Replay.setString("Press R to replay");
+
+	if (player1.health > 0)
+	{
+		txts.PlayerName.setString("Player 1 Won");
+	}
+	else txts.PlayerName.setString("Player 2 Won");
+
+	txts.GameOver.setPosition(view.getCenter() - sf::Vector2f(200, 200));
+	txts.PlayerName.setPosition(view.getCenter() - sf::Vector2f(150, 100));
+	txts.Replay.setPosition(view.getCenter() - sf::Vector2f(150, 50));
+}
+
+void DrawGameOver(GameOverTxt txt, sf::RenderWindow& window) {
+	window.draw(txt.GameOver);
+	window.draw(txt.Replay);
+	window.draw(txt.PlayerName);
+}
