@@ -7,6 +7,7 @@ struct Position {
 	float y;
 };
 
+
 struct Hull {
 	sf::ConvexShape hullShape;
 	Position position;
@@ -22,6 +23,11 @@ struct Sail {
 	Position position;
 };
 
+struct BoatLife {
+	sf::ConvexShape heartShape;
+	Position position;
+};
+
 struct Batal {
 	Hull hull;
 	Mast mast;
@@ -29,7 +35,10 @@ struct Batal {
 	Position position;
 	float scale;
 	float health;
+	std::vector<BoatLife> lifeList;
+	bool isFlipped = false;
 };
+
 
 struct Canon {
 	sf::RectangleShape base;
@@ -37,6 +46,7 @@ struct Canon {
 	sf::Vector2f cannonballOrigin;
 	Batal* batalAttached;
 };
+
 
 // Partie Batal
 
@@ -60,5 +70,10 @@ void FlipCanon(Canon& canon);
 
 void DrawCanon(Canon& canon, sf::RenderWindow& window);
 
+// Partie Vie
 
+BoatLife CreateLife(Batal& batal);
 
+void SetupHealthBoat(Batal& batal);
+
+void DrawPvBatal(Batal& batal ,sf::RenderWindow& window);
