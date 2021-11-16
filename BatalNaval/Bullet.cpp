@@ -43,48 +43,17 @@ void DrawBullet(Bullet& bullet, sf::RenderWindow& window) {
 	window.draw(bullet.circlelShape);
 }
 
-void MovingBullet(Bullet& bullet, float time, bool turn, sf::Vector2f& startVelo, sf::Clock clock)
+void MovingBullet(Bullet& bullet, float deltaTime, bool turn, sf::Vector2f& velocity, sf::Clock clock)
 {
-    float gravityScale = 0.3f;
-    const float t = clock.getElapsedTime().asSeconds()/2.f;
-    const float maxHeight = 0.2f;
-    const float minHeight = -0.2f;
-    const float smallerValue = 0.007f;
+	float gravityScale = 500.f;
 
-    sf::Vector2f pos(0.18f, 0);
-    const sf::Vector2f gravity{ 0, gravityScale };
+	const sf::Vector2f gravity{ 0, gravityScale };
 
-    if (!turn)
-    {
-        startVelo.y = startVelo.y + gravity.y * t;
-        pos.y += startVelo.y * t;
-        pos.y *= smallerValue;
+	velocity += gravity * deltaTime;
 
-        if (pos.y >= maxHeight)
-        {
-            pos.y = maxHeight;
-        }
-        else if (pos.y <= minHeight)
-        {
-            pos.y = minHeight;
-        }
-    }
-    else
-    {
-        pos.x *= -1;
-        startVelo.y += gravity.y * t;
-        pos.y += startVelo.y * t;
-        pos.y *= smallerValue;
+	sf::Vector2f pos = (velocity * deltaTime);
 
-        if (pos.y >= maxHeight)
-        {
-            pos.y = maxHeight;
-        }
-        else if (pos.y <= minHeight)
-        {
-            pos.y = minHeight;
-        }
-    }
+	//std::cout << bullet.position.y << '\n';
 
-    bullet.circlelShape.move(pos);
+	bullet.circlelShape.move(pos);
 }

@@ -22,18 +22,18 @@ int main()
 	Bullet* p_bullet = new Bullet;
 
 
-	float angleR = 1.f;
-	float upLimit = 4.f;
-	float downLimit = -2.2f;
-	float pos = 0;
-	int numberOfWaves = 13;
+	float angleR = 90.f;
+    //valeur entre 0 et 1
+	float pos1 = 0.2f;
+    float pos2 = 0.2f;
+	int numberOfWaves = 17;
 	bool isUp = true;
     bool isPlayer1Turn = true;
 
 	// Initialise everything below
 
 	Batal player1 = CreateBatal(100.0f, 450.0f, 2, 3);
-	Batal player2 = CreateBatal(1300.0f, 450.0f, 2, 4);
+	Batal player2 = CreateBatal(1700.0f, 450.0f, 2, 4);
     FlipBatal(player2);
 	Canon canon1 = CreateCanon(player1);
     Canon canon2 = CreateCanon(player2);
@@ -54,41 +54,46 @@ int main()
     std::vector<sf::Vector2f> pointVector(5, sf::Vector2f(0,0));
 
     sf::Clock clock;
+    sf::Clock clock2;
 
     sf::Vector2f posBatalOne = sf::Vector2f(player1.position.x + 300.f, player1.position.y - 150.f);
-    sf::Vector2f posBatalTwo = sf::Vector2f(1000.0f, player1.position.y - 150.f);
+    sf::Vector2f posBatalTwo = sf::Vector2f(1400.0f, player1.position.y - 150.f);
     sf::Vector2f target = posBatalOne;
     sf::Vector2f CameraPos = view.getCenter();
-    sf::Vector2f startVelo(0, -150.f);
+    sf::Vector2f velocity(0, -150.f);
 
 	WavesCreator(numberOfWaves, wavesEffect, voidEffect);
-	
+
     //Game loop
     while (window.isOpen()) {
         sf::Event event;
         float deltaTime = clock.getElapsedTime().asSeconds();
+        float trueDeltaTime = clock2.getElapsedTime().asSeconds();
+        clock2.restart();
         
         MovingCam(window, view, CameraPos, target, deltaTime, cameraIsMoving);
 
-        if (!colided){
-            if (isPlayer1Turn){
-                //test collision avec le player2
-                if (OnCollision(isPlayer1Turn, p_bullet, player2, water, deltaTime, window, startVelo, clock) || TestWaterCollision(water.water, p_bullet->circlelShape)) {
-                    colided = true;
-                    p_bullet = nullptr;
-                    isPlayer1Turn = !isPlayer1Turn;
-                    TestGameOver(player1, player2);
-                }
-            }
-            else {
-                //test collision avec le player1
-                if (OnCollision(isPlayer1Turn, p_bullet, player2, water, deltaTime, window, startVelo, clock) || TestWaterCollision(water.water, p_bullet->circlelShape)) {
-                    colided = true;
-                    p_bullet = nullptr;
-                    isPlayer1Turn = !isPlayer1Turn;
-                    TestGameOver(player1, player2);
-                }
-            }
+        if (!colided)
+        {
+			if (isPlayer1Turn) 
+            {
+				//test collision avec le player2
+				if (OnCollision(isPlayer1Turn, p_bullet, player2, water, trueDeltaTime, window, velocity, clock) || TestWaterCollision(water.water, p_bullet->circlelShape)) {
+					colided = true;
+					p_bullet = nullptr;
+					isPlayer1Turn = !isPlayer1Turn;
+					TestGameOver(player1, player2);
+				}
+			}
+			else {
+				//test collision avec le player1
+				if (OnCollision(isPlayer1Turn, p_bullet, player2, water, trueDeltaTime, window, velocity, clock) || TestWaterCollision(water.water, p_bullet->circlelShape)) {
+					colided = true;
+					p_bullet = nullptr;
+					isPlayer1Turn = !isPlayer1Turn;
+					TestGameOver(player1, player2);
+				}
+			}
         }
        
         while (window.pollEvent(event)) {
@@ -103,7 +108,7 @@ int main()
             case sf::Event::KeyPressed:
 				if (event.key.code == sf::Keyboard::Space)
 				{
-					Aiming(pos, upLimit, downLimit, isUp, angleR, isPlayer1Turn, canon1, canon2);
+
 				}
                 break;
                 
@@ -115,15 +120,40 @@ int main()
                     CameraPos = view.getCenter();
 
                     p_bullet = new Bullet;
-                    CreatingBullet(*p_bullet, canon1, canon2, pos, isPlayer1Turn, window);
+                    CreatingBullet(*p_bullet, canon1, canon2, pos1, isPlayer1Turn, window);
 
                     colided = false;
                     cameraIsMoving = true;
+
+                    velocity = sf::Vector2f(500, -500);
+                    float angleCanon;
+                    if (isPlayer1Turn)
+                    {
+                        angleCanon = canon1.base.getRotation();
+                    }
+                    else
+                    {
+                        angleCanon = canon2.base.getRotation() + 180.f;
+                    }
+                    std::cout << angleCanon << '\n';
+                    angleCanon = angleCanon *(3.1415f * 2.f)/360.f;
+                    velocity = sf::Vector2f(cos(angleCanon), sin(angleCanon)) * 800.f;
                 }
-                startVelo.y = -150.f;
+         
                 break;
 
             default: break;
+            }
+        }
+        if(sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
+        {
+            if (isPlayer1Turn)
+            {
+                Aiming(pos1, isUp, -angleR, trueDeltaTime, canon1);
+            }
+            else
+            {
+                Aiming(pos2, isUp, angleR, trueDeltaTime, canon2);
             }
         }
         window.clear();

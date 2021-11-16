@@ -35,50 +35,29 @@ void WavesCreator(int a, std::list<sf::CircleShape>& waves, std::list<sf::Circle
 	}
 }
 
-void Aiming(float& pos, float& upLimit, float& downLimit, bool& isUp, float& angleR, bool& turn, Canon& canon, Canon& canon2)
+void Aiming(float& pos, bool& isUp, float angleSpeed, float deltaTime, Canon& canon)
 {
-	if(turn)
+	float direction = 1.f;
+	const float duration = 1.f;
+	if(!isUp)
 	{
-		if (pos < upLimit && isUp)
-		{
-			canon.base.rotate(-angleR);
-			pos += 0.1f;
-			if (pos >= upLimit)
-			{
-				isUp = false;
-			}
-		}
-		else if (pos > downLimit && !isUp)
-		{
-			canon.base.rotate(angleR);
-			pos -= 0.1f;
-			if (pos < downLimit)
-			{
-				isUp = true;
-			}
-		}
+		direction *= -1;
 	}
-	if(!turn)
+  	canon.base.rotate(angleSpeed * direction * deltaTime);
+	pos += direction * deltaTime / duration;
+
+	//std::cout << pos << '\n';
+	//pos est le % d'avancement
+	
+	if (pos >= 1 && isUp)
 	{
-		if (pos < upLimit && isUp)
-		{
-			canon2.base.rotate(-angleR);
-			pos += 0.1f;
-			if (pos >= upLimit)
-			{
-				isUp = false;
-			}
-		}
-		else if (pos > downLimit && !isUp)
-		{
-			canon2.base.rotate(angleR);
-			pos -= 0.1f;
-			if (pos < downLimit)
-			{
-				isUp = true;
-			}
-		}
+		isUp = false;
 	}
+	else if (pos <= 0 && !isUp)
+	{
+		isUp = true;
+	}
+
 }
 
 void WavesDrawing(std::list<sf::CircleShape>& wavesEffect, std::list<sf::CircleShape>& voidEffect, sf::RenderWindow& window)
@@ -100,7 +79,7 @@ void WavesDrawing(std::list<sf::CircleShape>& wavesEffect, std::list<sf::CircleS
 Uwater CreateWater() 
 {
 	Uwater water;
-	sf::RectangleShape New(sf::Vector2f(1600.0f, 100.0f));
+	sf::RectangleShape New(sf::Vector2f(1950.0f, 100.0f));
 	water.water = New;
 	water.water.setPosition(0.f, 520.f);
 	water.water.setFillColor(sf::Color::Blue);
