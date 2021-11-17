@@ -55,10 +55,10 @@ bool TestWaterCollision(sf::RectangleShape water, sf::CircleShape& bullet) {
     return false;
 }
 
-bool OnCollision(bool playerTurn, Bullet* p_bullet, Batal& player, Uwater water,  float rangeX, sf::RenderWindow& window) {
+bool OnCollision(bool playerTurn, Bullet* p_bullet, Batal& player, Uwater water,  float deltaTime, sf::RenderWindow& window, sf::Vector2f& startVelo, sf::Clock clock) {
 
     if (p_bullet != nullptr && !TestCollision(player.hull.hullShape, p_bullet->circlelShape)) {
-        MovingBullet(*p_bullet, rangeX, !playerTurn, window);
+        MovingBullet(*p_bullet, deltaTime, !playerTurn, startVelo, clock);
         return false;
     }
     else {
