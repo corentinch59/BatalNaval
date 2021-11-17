@@ -101,16 +101,16 @@ void Gamefunction(bool& quit, bool& restart, sf::RenderWindow& window) {
 					colided = true;
 					p_bullet = nullptr;
 					isPlayer1Turn = !isPlayer1Turn;
-					TestGameOver(player1, player2);
+					TestGameOver(player1, player2, isGameOver);
 				}
 			}
 			else {
 				//test collision avec le player1
-				if (OnCollision(isPlayer1Turn, p_bullet, player2, water, trueDeltaTime, window, velocity, clock) || TestWaterCollision(water.water, p_bullet->circlelShape)) {
+				if (OnCollision(isPlayer1Turn, p_bullet, player1, water, trueDeltaTime, window, velocity, clock) || TestWaterCollision(water.water, p_bullet->circlelShape)) {
 					colided = true;
 					p_bullet = nullptr;
 					isPlayer1Turn = !isPlayer1Turn;
-					TestGameOver(player1, player2);
+					TestGameOver(player1, player2, isGameOver);
 				}
 			}
         }
