@@ -11,12 +11,10 @@ void CreatingBullet(Bullet& bullet, Canon& canon1, Canon& canon2, float pos, boo
 	if (pos > 0 && !(0.1f < pos < 1))
 	{
 		posY = pos * 15;
-		std::cout << "pos : " << pos << " posY :" << posY << '\n';
 	}
 	else
 	{
 		posY = pos * 9;
-		std::cout << "pos : " << pos << " posY :" << posY << '\n';
 	}
 	if (pos - 1 < 0)
 	{
@@ -38,7 +36,6 @@ void CreatingBullet(Bullet& bullet, Canon& canon1, Canon& canon2, float pos, boo
 
 
 	bullet.circlelShape.setPosition(bullet.position.x, bullet.position.y);
-	bullet.speed = 0.3f;
 }
 
 
@@ -46,29 +43,17 @@ void DrawBullet(Bullet& bullet, sf::RenderWindow& window) {
 	window.draw(bullet.circlelShape);
 }
 
-void MovingBullet(Bullet& bullet, float& rangeX, bool turn, sf::RenderWindow& window)
+void MovingBullet(Bullet& bullet, float deltaTime, bool turn, sf::Vector2f& velocity, sf::Clock clock)
 {
+	float gravityScale = 500.f;
 
-	if(!turn)
-	{
-		if (bullet.circlelShape.getPosition().x < rangeX)
-		{
-			bullet.circlelShape.move(sf::Vector2f(bullet.speed, -bullet.speed));
-		}
-		else if (bullet.circlelShape.getPosition().x > rangeX)
-		{
-			bullet.circlelShape.move(sf::Vector2f(bullet.speed, bullet.speed));
-		}
-	}
-	else
-	{
-		if (bullet.circlelShape.getPosition().x > rangeX)
-		{
-			bullet.circlelShape.move(sf::Vector2f(-bullet.speed, -bullet.speed));
-		}
-		else if (bullet.circlelShape.getPosition().x < rangeX)
-		{
-			bullet.circlelShape.move(sf::Vector2f(-bullet.speed, bullet.speed));
-		}
-	}
+	const sf::Vector2f gravity{ 0, gravityScale };
+
+	velocity += gravity * deltaTime;
+
+	sf::Vector2f pos = (velocity * deltaTime);
+
+	//std::cout << bullet.position.y << '\n';
+
+	bullet.circlelShape.move(pos);
 }
