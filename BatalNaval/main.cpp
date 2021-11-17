@@ -94,28 +94,14 @@ void Gamefunction(bool& quit, bool& restart, sf::RenderWindow& window) {
 
         if (!colided)
         {
-			if (isPlayer1Turn)
-            {
-				//test collision avec le player2
-				if (p_bullet != nullptr && OnCollision(isPlayer1Turn, p_bullet, player2, water, trueDeltaTime, window, velocity, clock) ||
-                    TestWaterCollision(water.water, p_bullet->circlelShape)) {
-
-					colided = true;
-					p_bullet = nullptr;
-					isPlayer1Turn = !isPlayer1Turn;
-					TestGameOver(player1, player2, isGameOver);
-				}
-			}
-			else {
-				//test collision avec le player1
-				if (p_bullet != nullptr && OnCollision(isPlayer1Turn, p_bullet, player1, water, trueDeltaTime, window, velocity, clock) || 
-                    TestWaterCollision(water.water, p_bullet->circlelShape)) {
-
-					colided = true;
-					p_bullet = nullptr;
-					isPlayer1Turn = !isPlayer1Turn;
-					TestGameOver(player1, player2, isGameOver);
-				}
+			//test collision avec le player2
+			if (isPlayer1Turn && OnCollision(isPlayer1Turn, p_bullet, player2, water, trueDeltaTime, window, velocity, clock) ||
+                TestWaterCollision(water.water, p_bullet->circlelShape) || 
+                (!isPlayer1Turn && OnCollision(isPlayer1Turn, p_bullet, player1, water, trueDeltaTime, window, velocity, clock))) {
+				colided = true;
+				p_bullet = nullptr;
+				isPlayer1Turn = !isPlayer1Turn;
+				TestGameOver(player1, player2, isGameOver);
 			}
         }
 
@@ -176,7 +162,7 @@ void Gamefunction(bool& quit, bool& restart, sf::RenderWindow& window) {
             default: break;
             }
         }
-        if(sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
+        if(sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && !isGameOver)
         {
             if (isPlayer1Turn)
             {
