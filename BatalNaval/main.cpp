@@ -46,11 +46,14 @@ void Gamefunction(bool& quit, bool& restart, sf::RenderWindow& window) {
     // Initialise everything below
 
 	Batal player1 = CreateBatal(100.0f, 450.0f, 2, 3);
+    SetupHealthBoat(player1);
 	Batal player2 = CreateBatal(1700.0f, 450.0f, 2, 4);
     FlipBatal(player2);
+    SetupHealthBoat(player2);
     Canon canon1 = CreateCanon(player1);
     Canon canon2 = CreateCanon(player2);
     FlipCanon(canon2);
+   
     Uwater water = CreateWater();
 
 
@@ -78,6 +81,7 @@ void Gamefunction(bool& quit, bool& restart, sf::RenderWindow& window) {
     sf::Font font;
     font.loadFromFile(getAssetsPath() + "\\arial.ttf");
 
+    Wind wind = WindDirection(font);
     GameOverTxt gameOvertxts = CreateGameOver();
     gameOvertxts.GameOver.setFont(font);
     gameOvertxts.Replay.setFont(font);
@@ -187,15 +191,18 @@ void Gamefunction(bool& quit, bool& restart, sf::RenderWindow& window) {
                 Aiming(pos2, isUp, angleR, trueDeltaTime, canon2);
             }
         }
-        window.clear();
+        window.clear(skyColor);
         // Whatever I want to draw goes here
 
         DrawWater(water, window);
         WavesDrawing(wavesEffect, voidEffect, window);
+        drawWind(wind, window);
         DrawBatal(player1, window);
         DrawBatal(player2, window);
         DrawCanon(canon1, window);
         DrawCanon(canon2, window);
+        DrawPvBatal(player1, window);
+        DrawPvBatal(player2, window);
         if (p_bullet != nullptr)
         {
             DrawBullet(*p_bullet, window);

@@ -13,7 +13,7 @@ void WavesCreator(int a, std::list<sf::CircleShape>& waves, std::list<sf::Circle
 	{
 		sf::CircleShape wave;
 		wave.setRadius(50.f);
-		wave.setFillColor(sf::Color::Blue);
+		wave.setFillColor(waterColor);
 		wave.setPosition(posX, posY);
 		posX += 127.f;
 		
@@ -27,7 +27,7 @@ void WavesCreator(int a, std::list<sf::CircleShape>& waves, std::list<sf::Circle
 	{
 		sf::CircleShape voidWave;
 		voidWave.setRadius(39.5f);
-		voidWave.setFillColor(sf::Color::Black);
+		voidWave.setFillColor(skyColor);
 		voidWave.setPosition(voidPosX, voidPosY);
 		voidPosX += 127.f;
 
@@ -82,7 +82,7 @@ Uwater CreateWater()
 	sf::RectangleShape New(sf::Vector2f(1950.0f, 100.0f));
 	water.water = New;
 	water.water.setPosition(0.f, 520.f);
-	water.water.setFillColor(sf::Color::Blue);
+	water.water.setFillColor(waterColor);
 	return water;
 	
 }
@@ -123,4 +123,25 @@ void DrawGameOver(GameOverTxt txt, sf::RenderWindow& window) {
 	window.draw(txt.GameOver);
 	window.draw(txt.Replay);
 	window.draw(txt.PlayerName);
+}
+
+Wind WindDirection(sf::Font arial)
+{
+	Wind wind;
+	sf::RectangleShape newBody(sf::Vector2f(25.0f, 50.0f));
+	wind.arrowBody = newBody;
+	wind.arrowBody.setFillColor(sf::Color::Red);
+	sf::CircleShape newArrow(30, 3);
+	wind.arrowDirection = newArrow;
+	wind.arrowDirection.setFillColor(sf::Color::Red);
+	wind.arrowBody.setPosition(50, 50);
+	wind.arrowDirection.setPosition(wind.arrowBody.getPosition().x - 18, wind.arrowBody.getPosition().y - 22);
+	return wind;
+}
+
+void drawWind(Wind& wind, sf::RenderWindow& window)
+{
+	window.draw(wind.arrowBody);
+	window.draw(wind.arrowDirection);
+	//window.draw(wind.windText);
 }

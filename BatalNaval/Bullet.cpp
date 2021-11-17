@@ -22,7 +22,7 @@ void CreatingBullet(Bullet& bullet, Canon& canon1, Canon& canon2, float pos, boo
 	}
 
 	bullet.circlelShape.setRadius(10);
-	bullet.circlelShape.setFillColor(sf::Color::Green);
+	bullet.circlelShape.setFillColor(sf::Color::Color(34, 51, 59));
 	if(turn)
 	{
 		bullet.position.x = canon1.base.getPosition().x + posX;

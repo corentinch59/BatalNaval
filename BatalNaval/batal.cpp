@@ -109,7 +109,7 @@ Canon CreateCanon(Batal& batal)
 	// Construction de la base du canon 
 	sf::RectangleShape baseCanon(sf::Vector2f(35 * batal.scale, 10 * batal.scale));
 	baseCanon.setPosition(batal.hull.hullShape.getPosition().x + 70 * batal.scale, batal.hull.hullShape.getPosition().y - 14 * batal.scale);
-	baseCanon.setFillColor(sf::Color::Red);
+	baseCanon.setFillColor(sf::Color::Color(178, 178, 178));
 	baseCanon.setOrigin(0, baseCanon.getSize().y / 2);
 	newCanon.base = baseCanon;
 	std::cout << "Cannon : base created" << '\n';
