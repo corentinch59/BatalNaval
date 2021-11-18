@@ -11,10 +11,12 @@ std::vector<Batal> InitialiseList(Batal& player1, Batal& player2) {
 	return newList;
 }
 
-std::vector<Batal>::iterator InitialiseTurn(std::vector<Batal> list) {
-	std::vector<Batal>::iterator it;
+std::vector<Batal>::iterator InitialiseTurn(std::vector<Batal>& list) {
+	std::vector<Batal>::iterator newIt;
 
-	return it;
+	newIt = list.begin();
+
+	return newIt;
 }
 
 void StartingPhase(std::vector<Batal>::iterator& it) {

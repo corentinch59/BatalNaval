@@ -1,12 +1,21 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 
+enum BatalStatus {
+	voidDebuff,
+	fireDebuff,
+	RainBuff
+};
+
+struct BatalEffects {
+	BatalStatus batalStatus;
+	int duration;
+};
 
 struct Position {
 	float x;
 	float y;
 };
-
 
 struct Hull {
 	sf::ConvexShape hullShape;
@@ -37,6 +46,7 @@ struct Batal {
 	float health;
 	std::vector<BoatLife> lifeList;
 	bool isFlipped = false;
+	std::vector<BatalEffects> listOfEffects;
 };
 
 

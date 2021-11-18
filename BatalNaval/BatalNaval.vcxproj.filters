@@ -37,6 +37,9 @@
     <Filter Include="Fichiers sources\Bullet">
       <UniqueIdentifier>{0aff17fd-5950-44fb-83fb-4f447354cb8d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Fichiers sources\TurnSystem">
+      <UniqueIdentifier>{6c098090-b01d-4416-a1f4-88df3327720a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -66,6 +69,9 @@
     <ClCompile Include="Path.cpp">
       <Filter>Fichiers sources\GameOver</Filter>
     </ClCompile>
+    <ClCompile Include="TurnSystem.cpp">
+      <Filter>Fichiers sources\TurnSystem</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Graphismes.h">
@@ -91,6 +97,9 @@
     </ClInclude>
     <ClInclude Include="Path.h">
       <Filter>Fichiers sources\GameOver</Filter>
+    </ClInclude>
+    <ClInclude Include="TurnSystem.h">
+      <Filter>Fichiers sources\TurnSystem</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
