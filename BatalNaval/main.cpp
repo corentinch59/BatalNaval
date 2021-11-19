@@ -11,6 +11,7 @@ void Gamefunction(bool& quit, bool& restart, sf::RenderWindow& window);
 
 int main()
 {
+    srand(time(NULL));
     bool quit = false;
     bool restart = false;
     sf::ContextSettings settings;
@@ -45,17 +46,20 @@ void Gamefunction(bool& quit, bool& restart, sf::RenderWindow& window) {
 
     // Initialise everything below
 
-	Batal player1 = CreateBatal(100.0f, 450.0f, 2, 3);
+	Batal player1 = CreateBatal(100.0f, 450.0f, 2, 5);
     SetupHealthBoat(player1);
-	Batal player2 = CreateBatal(1700.0f, 450.0f, 2, 4);
+	Batal player2 = CreateBatal(1700.0f, 450.0f, 2, 5);
     FlipBatal(player2);
     SetupHealthBoat(player2);
     Canon canon1 = CreateCanon(player1);
     Canon canon2 = CreateCanon(player2);
     FlipCanon(canon2);
+
+    CriticalHit cc1 = CreateCH(player1);
+    CriticalHit cc2 = CreateCH(player2);
+    FlipCC(cc2);
    
     Uwater water = CreateWater();
-
 
     sf::View view;//(sf::Vector2f(350.f, 300.f), sf::Vector2f(300.f, 200.f));
     view.setCenter(sf::Vector2f(400.0f, 300.f));
@@ -87,6 +91,7 @@ void Gamefunction(bool& quit, bool& restart, sf::RenderWindow& window) {
     gameOvertxts.Replay.setFont(font);
     gameOvertxts.PlayerName.setFont(font);
 
+
     //Game loop
     while (window.isOpen() && !restart) {
         sf::Event event;
@@ -99,9 +104,9 @@ void Gamefunction(bool& quit, bool& restart, sf::RenderWindow& window) {
         if (!colided)
         {
 			//test collision avec le player2
-			if (isPlayer1Turn && OnCollision(isPlayer1Turn, p_bullet, player2, water, trueDeltaTime, window, velocity, clock) ||
+			if (isPlayer1Turn && OnCollision(isPlayer1Turn, p_bullet, player2, water, trueDeltaTime, window, velocity, clock, cc2) ||
                 TestWaterCollision(water.water, p_bullet->circlelShape) || 
-                (!isPlayer1Turn && OnCollision(isPlayer1Turn, p_bullet, player1, water, trueDeltaTime, window, velocity, clock))) {
+                (!isPlayer1Turn && OnCollision(isPlayer1Turn, p_bullet, player1, water, trueDeltaTime, window, velocity, clock, cc1))) {
 				colided = true;
 				p_bullet = nullptr;
 				isPlayer1Turn = !isPlayer1Turn;
@@ -158,7 +163,7 @@ void Gamefunction(bool& quit, bool& restart, sf::RenderWindow& window) {
                     angleCanon = angleCanon *(3.1415f * 2.f)/360.f;
                     velocity = sf::Vector2f(cos(angleCanon), sin(angleCanon)) * 800.f;
                 }
-                if (event.key.code == sf::Keyboard::R && isGameOver)
+                if (event.key.code == sf::Keyboard::R/* && isGameOver*/)
                 {
                     restart = true;
                 }
@@ -189,6 +194,8 @@ void Gamefunction(bool& quit, bool& restart, sf::RenderWindow& window) {
         DrawCanon(canon2, window);
         DrawPvBatal(player1, window);
         DrawPvBatal(player2, window);
+        DrawCC(cc1, window);
+        DrawCC(cc2, window);
         if (p_bullet != nullptr)
         {
             DrawBullet(*p_bullet, window);

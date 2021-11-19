@@ -2,11 +2,12 @@
 #include <iostream>
 #include "Collision.h"
 
-bool TestCollision(sf::ConvexShape batal, sf::CircleShape& bullet){
+int TestCollision(sf::ConvexShape batal, sf::CircleShape& bullet, CriticalHit cc){
     bullet.setOrigin(sf::Vector2f(bullet.getRadius() / 2, bullet.getRadius() / 2));
 
 
     sf::FloatRect boundingBox = batal.getGlobalBounds();
+    sf::FloatRect critiqueBox = cc.shape.getGlobalBounds();
 
     std::vector<sf::Vector2f> pointVector;
     int nbpoint = 5;
@@ -33,14 +34,19 @@ bool TestCollision(sf::ConvexShape batal, sf::CircleShape& bullet){
     //    }
 
 
+    if (critiqueBox.contains(bullet.getPosition()))
+    {
+        return 2;
+    }
+
     for (int i = 0; i < nbpoint; i++)
     {
         if (boundingBox.contains(pointVector[i]))
         {
-            return true;
+            return 1;
         }
     }
-    return false;
+    return 0;
 }
 
 
@@ -55,16 +61,23 @@ bool TestWaterCollision(sf::RectangleShape water, sf::CircleShape& bullet) {
     return false;
 }
 
-bool OnCollision(bool playerTurn, Bullet* p_bullet, Batal& player, Uwater water,  float deltaTime, sf::RenderWindow& window, sf::Vector2f& startVelo, sf::Clock clock) {
+bool OnCollision(bool playerTurn, Bullet* p_bullet, Batal& player, Uwater water,  float deltaTime, sf::RenderWindow& window, sf::Vector2f& startVelo, sf::Clock clock, CriticalHit& cc) {
 
-    if (p_bullet != nullptr && !TestCollision(player.hull.hullShape, p_bullet->circlelShape)) {
+    if (p_bullet != nullptr && TestCollision(player.hull.hullShape, p_bullet->circlelShape, cc) == 0) {
         MovingBullet(*p_bullet, deltaTime, !playerTurn, startVelo, clock);
         return false;
     }
-    else {
-
+    else if (p_bullet != nullptr && TestCollision(player.hull.hullShape, p_bullet->circlelShape, cc) == 1)
+    {
         player.health--;
         std::cout << "TOUCHE " << player.health << '\n';
+        return true;
+    }
+    else { 
+        player.health -= 2;
+        cc.shape.setFillColor(sf::Color::Color(255, 0, 0, 0));
+        cc.shape.setPosition(0.f, 0.f);
+        std::cout << "CRITIQUZ " << player.health << '\n';
         return true;
     }
 }

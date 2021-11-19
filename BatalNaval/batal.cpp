@@ -1,5 +1,6 @@
 #include <string>
 #include <iostream>
+#include <cmath>
 #include <SFML/Graphics.hpp>
 #include "batal.h"
 
@@ -138,6 +139,23 @@ Canon CreateCanon(Batal& batal)
 	return newCanon;
 }
 
+CriticalHit CreateCH(Batal& batal)
+{
+	CriticalHit coupCritique;
+
+	int randNumber = rand() % 100 + 1;
+
+	// Construction de la roue du canon
+	coupCritique.shape.setRadius(8 * batal.scale);
+	coupCritique.shape.setPosition(batal.hull.hullShape.getPosition().x + randNumber * batal.scale, batal.hull.hullShape.getPosition().y - 12 * batal.scale);
+	coupCritique.shape.setFillColor(sf::Color::Red);
+
+	// Attachement au batal
+	coupCritique.batalAttached = &batal;
+
+	return coupCritique;
+}
+
 void FlipCanon(Canon& canon) {
 	canon.base.setScale(-1.0f, 1.0f);
 	canon.base.setPosition(canon.batalAttached->hull.position.x - 170, canon.batalAttached->hull.position.y - 20);
@@ -147,10 +165,21 @@ void FlipCanon(Canon& canon) {
 
 }
 
+void FlipCC(CriticalHit& canon) {
+	int randNumber = rand() % 250 + 1;
+	canon.shape.setPosition(canon.batalAttached->hull.position.x - randNumber , canon.batalAttached->hull.position.y - 20);
+
+}
+
 void DrawCanon(Canon& canon, sf::RenderWindow& window)
 {
 	window.draw(canon.base);
 	window.draw(canon.roue);
+}
+
+void DrawCC(CriticalHit& cc, sf::RenderWindow& window)
+{
+	window.draw(cc.shape);
 }
 
 BoatLife CreateLife(Batal& batal) {
