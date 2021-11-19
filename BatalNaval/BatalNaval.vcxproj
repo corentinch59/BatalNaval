@@ -160,6 +160,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Math.cpp" />
     <ClCompile Include="Path.cpp" />
+    <ClCompile Include="TurnSystem.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="batal.h" />
@@ -170,6 +171,7 @@
     <ClInclude Include="Graphismes.h" />
     <ClInclude Include="Math.h" />
     <ClInclude Include="Path.h" />
+    <ClInclude Include="TurnSystem.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
