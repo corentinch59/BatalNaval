@@ -70,6 +70,7 @@ void Gamefunction(bool& quit, bool& restart, sf::RenderWindow& window) {
     bool goingLeft = true;
     bool cameraIsMoving = false;
     bool colided = false;
+    bool asShoot = false;
 
     sf::Clock clock;
     sf::Clock clock2;
@@ -101,15 +102,15 @@ void Gamefunction(bool& quit, bool& restart, sf::RenderWindow& window) {
         
         MovingCam(window, view, CameraPos, target, deltaTime, cameraIsMoving);
 
-        if (!colided)
+        if (!colided && asShoot)
         {
-			//test collision avec le player2
 			if (isPlayer1Turn && OnCollision(isPlayer1Turn, p_bullet, player2, water, trueDeltaTime, window, velocity, clock, cc2) ||
                 TestWaterCollision(water.water, p_bullet->circlelShape) || 
                 (!isPlayer1Turn && OnCollision(isPlayer1Turn, p_bullet, player1, water, trueDeltaTime, window, velocity, clock, cc1))) {
 				colided = true;
 				p_bullet = nullptr;
 				isPlayer1Turn = !isPlayer1Turn;
+                asShoot = false;
 				TestGameOver(player1, player2, isGameOver);
 			}
         }
@@ -145,6 +146,7 @@ void Gamefunction(bool& quit, bool& restart, sf::RenderWindow& window) {
 
                     p_bullet = new Bullet;
                     CreatingBullet(*p_bullet, canon1, canon2, pos1, isPlayer1Turn, window);
+                    asShoot = true;
 
                     colided = false;
                     cameraIsMoving = true;
