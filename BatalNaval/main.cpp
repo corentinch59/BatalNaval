@@ -165,7 +165,7 @@ void Gamefunction(bool& quit, bool& restart, sf::RenderWindow& window) {
                     angleCanon = angleCanon *(3.1415f * 2.f)/360.f;
                     velocity = sf::Vector2f(cos(angleCanon), sin(angleCanon)) * 800.f;
                 }
-                if (event.key.code == sf::Keyboard::R/* && isGameOver*/)
+                if (event.key.code == sf::Keyboard::R && isGameOver)
                 {
                     restart = true;
                 }

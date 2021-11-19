@@ -143,7 +143,7 @@ CriticalHit CreateCH(Batal& batal)
 {
 	CriticalHit coupCritique;
 
-	int randNumber = rand() % 100 + 1;
+	int randNumber = rand() % 100 + 10;
 
 	// Construction de la roue du canon
 	coupCritique.shape.setRadius(8 * batal.scale);
@@ -166,7 +166,7 @@ void FlipCanon(Canon& canon) {
 }
 
 void FlipCC(CriticalHit& canon) {
-	int randNumber = rand() % 250 + 1;
+	int randNumber = rand() % 250 + 30;
 	canon.shape.setPosition(canon.batalAttached->hull.position.x - randNumber , canon.batalAttached->hull.position.y - 20);
 
 }

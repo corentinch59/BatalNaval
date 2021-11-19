@@ -34,16 +34,17 @@ int TestCollision(sf::ConvexShape batal, sf::CircleShape& bullet, CriticalHit cc
     //    }
 
 
-    if (critiqueBox.contains(bullet.getPosition()))
-    {
-        return 2;
-    }
+
 
     for (int i = 0; i < nbpoint; i++)
     {
         if (boundingBox.contains(pointVector[i]))
         {
             return 1;
+        }
+        if (critiqueBox.contains(pointVector[i]))
+        {
+            return 2;
         }
     }
     return 0;
@@ -56,6 +57,7 @@ bool TestWaterCollision(sf::RectangleShape water, sf::CircleShape& bullet) {
 
     if (boundingBox.contains(bullet.getPosition()))
     {
+        std::cout << "BATAL RATE" << '\n';
         return true;
     }
     return false;
@@ -70,14 +72,14 @@ bool OnCollision(bool playerTurn, Bullet* p_bullet, Batal& player, Uwater water,
     else if (p_bullet != nullptr && TestCollision(player.hull.hullShape, p_bullet->circlelShape, cc) == 1)
     {
         player.health--;
-        std::cout << "TOUCHE " << player.health << '\n';
+        std::cout << "BATAL TOUCHE" << '\n';
         return true;
     }
     else { 
         player.health -= 2;
         cc.shape.setFillColor(sf::Color::Color(255, 0, 0, 0));
         cc.shape.setPosition(0.f, 0.f);
-        std::cout << "CRITIQUZ " << player.health << '\n';
+        std::cout << "COUP CRITIQUE " << '\n';
         return true;
     }
 }

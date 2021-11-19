@@ -104,9 +104,9 @@ void DisplayGameOver(Batal player1, GameOverTxt& txts, sf::View view) {
 
 	if (player1.health > 0)
 	{
-		txts.PlayerName.setString("Player 1 Won");
+		txts.PlayerName.setString("Player 1 Win");
 	}
-	else txts.PlayerName.setString("Player 2 Won");
+	else txts.PlayerName.setString("Player 2 Win");
 
 	txts.GameOver.setPosition(view.getCenter() - sf::Vector2f(200, 200));
 	txts.PlayerName.setPosition(view.getCenter() - sf::Vector2f(150, 100));
