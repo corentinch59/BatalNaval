@@ -1,4 +1,6 @@
 
+#include <iostream>
+#include <vector>
 #include "TurnSystem.h"
 #include "batal.h"
 
@@ -103,4 +105,5 @@ std::vector<Batal>::iterator EndPhase(std::vector<Batal> list, std::vector<Batal
 			it = list.begin();
 		}
 	}
+	return it;
 }

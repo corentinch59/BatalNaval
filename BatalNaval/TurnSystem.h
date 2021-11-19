@@ -1,7 +1,5 @@
 #pragma once
-
-#include <iostream>
-#include <vector>
+#include "batal.h"
 
 struct Turn {
 	std::vector<Batal> bList;

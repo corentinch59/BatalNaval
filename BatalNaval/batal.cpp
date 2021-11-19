@@ -239,7 +239,7 @@ void SetupHealthBoat(Batal& batal) {
 				else {
 					test.heartShape.setScale(-1.0f, 1.0f);
 					test.heartShape.setOrigin(-5 * batal.scale, 0);
-					test.heartShape.setPosition(batal.lifeList[i - 1].heartShape.getPosition().x + 10, batal.lifeList[i - 1].heartShape.getPosition().y);
+					test.heartShape.setPosition(batal.lifeList[i - 1].heartShape.getPosition().x - 10, batal.lifeList[i - 1].heartShape.getPosition().y);
 				}
 				batal.lifeList.push_back(test);
 			}
