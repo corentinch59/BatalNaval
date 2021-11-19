@@ -4,7 +4,8 @@
 enum BatalStatus {
 	voidDebuff,
 	fireDebuff,
-	RainBuff
+	RainBuff,
+	FishBuff
 };
 
 struct BatalEffects {
@@ -47,6 +48,8 @@ struct Batal {
 	std::vector<BoatLife> lifeList;
 	bool isFlipped = false;
 	std::vector<BatalEffects> listOfEffects;
+	bool isFishing = false;
+	float damageMult = 1;
 };
 
 
