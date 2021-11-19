@@ -94,13 +94,7 @@ void DrawWater(Uwater& water, sf::RenderWindow& window)
 
 GameOverTxt CreateGameOver() {
 	GameOverTxt txts;
-
-	//txts.GameOver.setString("GAME OVER");
-	//txts.Replay.setString("Press R to replay");
-
 	txts.GameOver.setScale(2, 2);
-	//txts.Replay.setScale(0, 0);
-
 	return txts;
 }
 
