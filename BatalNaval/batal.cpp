@@ -226,7 +226,7 @@ void SetupHealthBoat(Batal& batal) {
 		for (int i = 0; i < batal.health; i++) {
 			if (i == 0) {
 				BoatLife test = CreateLife(batal);
-				test.heartShape.setPosition(batal.position.x - 26 * batal.scale, batal.position.y + 30 * batal.scale);
+				test.heartShape.setPosition(batal.position.x - 45 * batal.scale, batal.position.y + 30 * batal.scale);
 				test.heartShape.setScale(-1.0f, 1.0f);
 				test.heartShape.setOrigin(-5 * batal.scale, 0);
 				batal.lifeList.push_back(test);
@@ -239,7 +239,7 @@ void SetupHealthBoat(Batal& batal) {
 				else {
 					test.heartShape.setScale(-1.0f, 1.0f);
 					test.heartShape.setOrigin(-5 * batal.scale, 0);
-					test.heartShape.setPosition(batal.lifeList[i - 1].heartShape.getPosition().x - 10, batal.lifeList[i - 1].heartShape.getPosition().y);
+					test.heartShape.setPosition(batal.lifeList[i - 1].heartShape.getPosition().x + 10, batal.lifeList[i - 1].heartShape.getPosition().y);
 				}
 				batal.lifeList.push_back(test);
 			}
@@ -249,7 +249,10 @@ void SetupHealthBoat(Batal& batal) {
 
 void DrawPvBatal(Batal& batal ,sf::RenderWindow& window) {
 	if (batal.lifeList.size() > batal.health) {
-		batal.lifeList.pop_back();
+		if (!batal.isFlipped)
+			batal.lifeList.pop_back();
+		else
+			batal.lifeList.erase(batal.lifeList.begin());
 	}
 	for (std::vector<BoatLife>::iterator it = batal.lifeList.begin(); it != batal.lifeList.end();) {
 		window.draw(it->heartShape);
