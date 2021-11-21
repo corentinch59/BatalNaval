@@ -114,14 +114,16 @@ void Gamefunction(bool& quit, bool& restart, sf::RenderWindow& window) {
 
         if (!colided && asShoot)
         {
-			if (isPlayer1Turn && OnCollision(isPlayer1Turn, p_bullet, player2, water, trueDeltaTime, window, velocity, clock, cc2) ||
+			if (isPlayer1Turn && OnCollision(isPlayer1Turn, p_bullet, player2, water, trueDeltaTime, window, velocity, clock, cc2, direction) ||
                 TestWaterCollision(water.water, p_bullet->circlelShape) || 
-                (!isPlayer1Turn && OnCollision(isPlayer1Turn, p_bullet, player1, water, trueDeltaTime, window, velocity, clock, cc1))) {
+                (!isPlayer1Turn && OnCollision(isPlayer1Turn, p_bullet, player1, water, trueDeltaTime, window, velocity, clock, cc1, direction))) {
 				colided = true;
 				p_bullet = nullptr;
 				isPlayer1Turn = !isPlayer1Turn;
                 asShoot = false;
 				TestGameOver(player1, player2, isGameOver);
+                direction = RandomWind();
+                Wind wind = WindDirection(direction, view);
 			}
         }
 
