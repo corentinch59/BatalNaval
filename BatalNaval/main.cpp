@@ -6,6 +6,7 @@
 #include "Bullet.h"
 #include "Collision.h"
 #include "GameOver.h"
+#include "TurnSystem.h"
 
 void Gamefunction(bool& quit, bool& restart, sf::RenderWindow& window);
 
@@ -46,6 +47,7 @@ void Gamefunction(bool& quit, bool& restart, sf::RenderWindow& window) {
 
     // Initialise everything below
 
+    // Initialising Batals
 	Batal player1 = CreateBatal(100.0f, 450.0f, 2, 5);
     SetupHealthBoat(player1);
 	Batal player2 = CreateBatal(1700.0f, 450.0f, 2, 5);
@@ -54,10 +56,16 @@ void Gamefunction(bool& quit, bool& restart, sf::RenderWindow& window) {
     Canon canon1 = CreateCanon(player1);
     Canon canon2 = CreateCanon(player2);
     FlipCanon(canon2);
-
+    // Inialising Critical spots 
     CriticalHit cc1 = CreateCH(player1);
     CriticalHit cc2 = CreateCH(player2);
     FlipCC(cc2);
+
+    // Initialising TurnSystem
+    Turn turn;
+    turn.bList = InitialiseList(player1, player2);
+    InitialiseTurn(turn);
+
    
     Uwater water = CreateWater();
 
@@ -99,6 +107,8 @@ void Gamefunction(bool& quit, bool& restart, sf::RenderWindow& window) {
         float deltaTime = clock.getElapsedTime().asSeconds();
         float trueDeltaTime = clock2.getElapsedTime().asSeconds();
         clock2.restart();
+
+        StartingPhase(turn);
         
         MovingCam(window, view, CameraPos, target, deltaTime, cameraIsMoving);
 
@@ -138,7 +148,7 @@ void Gamefunction(bool& quit, bool& restart, sf::RenderWindow& window) {
                 break;
 
             case sf::Event::KeyReleased:
-                if (event.key.code == sf::Keyboard::Space && !cameraIsMoving && !isGameOver)
+                if (event.key.code == sf::Keyboard::Space && !cameraIsMoving && !isGameOver && CheckActionPhase(turn))
                 {
                     target = Direction(goingLeft, posBatalOne, posBatalTwo);
                     clock.restart();
@@ -173,7 +183,7 @@ void Gamefunction(bool& quit, bool& restart, sf::RenderWindow& window) {
             default: break;
             }
         }
-        if(sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && !isGameOver)
+        if(sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && !isGameOver && CheckActionPhase(turn))
         {
             if (isPlayer1Turn)
             {
@@ -184,6 +194,7 @@ void Gamefunction(bool& quit, bool& restart, sf::RenderWindow& window) {
                 Aiming(pos2, isUp, angleR, trueDeltaTime, canon2);
             }
         }
+        EndPhase(turn);
         window.clear(skyColor);
         // Whatever I want to draw goes here
 

@@ -13,53 +13,52 @@ std::vector<Batal> InitialiseList(Batal& player1, Batal& player2) {
 	return newList;
 }
 
-std::vector<Batal>::iterator InitialiseTurn(std::vector<Batal>& list, Turn& turn) {
-	std::vector<Batal>::iterator newIt;
+void InitialiseTurn(Turn& turn) {
 
 	turn.step = 0;
-	newIt = list.begin();
+	turn.itBatal = turn.bList.begin();
 
-	return newIt;
+	return;
 }
 
-void StartingPhase(std::vector<Batal>::iterator& it, Turn& turn) {
+void StartingPhase(Turn& turn) {
 	//Start the phase check if fishing or batal on fire.
 	if (turn.step == 0) {
 		std::vector<BatalEffects>::iterator batalFxIt;
-		for (batalFxIt = it->listOfEffects.begin(); batalFxIt != it->listOfEffects.end();) {
+		for (batalFxIt = turn.itBatal->listOfEffects.begin(); batalFxIt != turn.itBatal->listOfEffects.end();) {
 			switch (batalFxIt->batalStatus)
 			{
 			case RainBuff:
-				for (auto rb = it->listOfEffects.begin(); rb != it->listOfEffects.end();) {
+				for (auto rb = turn.itBatal->listOfEffects.begin(); rb != turn.itBatal->listOfEffects.end();) {
 					switch (rb->batalStatus)
 					{
 					case fireDebuff: case voidDebuff:
 						std::cout << rb->batalStatus << " cleansed" << '\n';
-						it->listOfEffects.erase(rb);
+						turn.itBatal->listOfEffects.erase(rb);
 					default:
 						rb++;
 						break;
 					}
 				}
-				it->listOfEffects.erase(batalFxIt);
+				turn.itBatal->listOfEffects.erase(batalFxIt);
 				break;
 			default:
 				batalFxIt++;
 				break;
 			}
 		}
-		for (batalFxIt = it->listOfEffects.begin(); batalFxIt != it->listOfEffects.end();) {
+		for (batalFxIt = turn.itBatal->listOfEffects.begin(); batalFxIt != turn.itBatal->listOfEffects.end();) {
 			switch (batalFxIt->batalStatus)
 			{
 			case voidDebuff:
 				if (batalFxIt->duration != 0) {
 					batalFxIt->duration -= 1;
-					it->damageMult = 2;
+					turn.itBatal->damageMult = 2;
 				}
 				if (batalFxIt->duration == 0) {
-					it->damageMult = 1;
+					turn.itBatal->damageMult = 1;
 					std::cout << "VoidDebuff expired" << '\n';
-					it->listOfEffects.erase(batalFxIt);
+					turn.itBatal->listOfEffects.erase(batalFxIt);
 				}
 				else {
 					batalFxIt++;
@@ -72,7 +71,7 @@ void StartingPhase(std::vector<Batal>::iterator& it, Turn& turn) {
 				}
 				if (batalFxIt->duration == 0) {
 					std::cout << "FireDebuff expired" << '\n';
-					it->listOfEffects.erase(batalFxIt);
+					turn.itBatal->listOfEffects.erase(batalFxIt);
 				}
 				else {
 					batalFxIt++;
@@ -96,14 +95,15 @@ bool CheckActionPhase(Turn& turn) {
 
 void ResolveActionPhase(Turn& turn) {
 	turn.step = 2;
+	return;
 }
 
-std::vector<Batal>::iterator EndPhase(std::vector<Batal> list, std::vector<Batal>::iterator& it, Turn& turn) {
+void EndPhase(Turn& turn) {
 	if (turn.step == 2) {
-		it++;
-		if (it == list.end()) {
-			it = list.begin();
+		turn.itBatal++;
+		if (turn.itBatal == turn.bList.end()) {
+			turn.itBatal = turn.bList.begin();
 		}
 	}
-	return it;
+	return;
 }
