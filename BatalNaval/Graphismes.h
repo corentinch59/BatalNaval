@@ -32,5 +32,6 @@ void WavesDrawing(std::list<sf::CircleShape>& wavesEffect, std::list<sf::CircleS
 GameOverTxt CreateGameOver();
 void DrawGameOver(GameOverTxt, sf::RenderWindow& window);
 void DisplayGameOver(Batal player1, GameOverTxt& txts, sf::View view);
-Wind WindDirection(sf::Font arial);
+Wind WindDirection(std::string direction, sf::View view);
 void drawWind(Wind& wind, sf::RenderWindow& window);
+std::string RandomWind();

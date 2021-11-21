@@ -38,22 +38,38 @@ void CreatingBullet(Bullet& bullet, Canon& canon1, Canon& canon2, float pos, boo
 	bullet.circlelShape.setPosition(bullet.position.x, bullet.position.y);
 }
 
-
 void DrawBullet(Bullet& bullet, sf::RenderWindow& window) {
 	window.draw(bullet.circlelShape);
 }
 
-void MovingBullet(Bullet& bullet, float deltaTime, bool turn, sf::Vector2f& velocity, sf::Clock clock)
+void MovingBullet(Bullet& bullet, float deltaTime, bool turn, sf::Vector2f& velocity, std::string direction)
 {
-	float gravityScale = 500.f;
+	float gravityScaleY = 500.f;
+	
 
-	const sf::Vector2f gravity{ 0, gravityScale };
-
-	velocity += gravity * deltaTime;
+	sf::Vector2f gravity {0 , gravityScaleY};
+	if (direction == "N") 
+	{
+		velocity += gravity * deltaTime + sf::Vector2f(0, 0.01);
+	}
+	else if (direction == "S") 
+	{
+		velocity += gravity * deltaTime * 1.1f;
+	}
+	else if (direction == "E") 
+	{
+		velocity.y += gravity.y * deltaTime;
+		velocity.x += gravity.x * deltaTime + 0.001f;
+	}
+	else if (direction == "W") 
+	{
+		velocity.y += gravity.y * deltaTime;
+		velocity.x -= gravity.x * deltaTime + 0.001f;
+	}
 
 	sf::Vector2f pos = (velocity * deltaTime);
 
-	//std::cout << bullet.position.y << '\n';
+	//std::cout << velocity.x << '\n';
 
 	bullet.circlelShape.move(pos);
 }

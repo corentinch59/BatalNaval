@@ -11,6 +11,7 @@ void Gamefunction(bool& quit, bool& restart, sf::RenderWindow& window);
 
 int main()
 {
+    srand(time(NULL));
     bool quit = false;
     bool restart = false;
     sf::ContextSettings settings;
@@ -80,13 +81,11 @@ void Gamefunction(bool& quit, bool& restart, sf::RenderWindow& window) {
 
     sf::Font font;
     font.loadFromFile(getAssetsPath() + "\\arial.ttf");
-
-    Wind wind = WindDirection(font);
     GameOverTxt gameOvertxts = CreateGameOver();
     gameOvertxts.GameOver.setFont(font);
     gameOvertxts.Replay.setFont(font);
     gameOvertxts.PlayerName.setFont(font);
-
+    std::string direction = RandomWind();
     //Game loop
     while (window.isOpen() && !restart) {
         sf::Event event;
@@ -94,19 +93,24 @@ void Gamefunction(bool& quit, bool& restart, sf::RenderWindow& window) {
         float trueDeltaTime = clock2.getElapsedTime().asSeconds();
         clock2.restart();
         
+        Wind wind = WindDirection(direction, view);
+        wind.windText.setFont(font);
+
         MovingCam(window, view, CameraPos, target, deltaTime, cameraIsMoving);
 
         if (!colided)
         {
-			//test collision avec le player2
-			if (isPlayer1Turn && OnCollision(isPlayer1Turn, p_bullet, player2, water, trueDeltaTime, window, velocity, clock) ||
-                TestWaterCollision(water.water, p_bullet->circlelShape) || 
-                (!isPlayer1Turn && OnCollision(isPlayer1Turn, p_bullet, player1, water, trueDeltaTime, window, velocity, clock))) {
-				colided = true;
-				p_bullet = nullptr;
-				isPlayer1Turn = !isPlayer1Turn;
-				TestGameOver(player1, player2, isGameOver);
-			}
+            //test collision avec le player2
+            if (isPlayer1Turn && OnCollision(isPlayer1Turn, p_bullet, player2, water, trueDeltaTime, window, velocity, clock, direction) ||
+                TestWaterCollision(water.water, p_bullet->circlelShape) ||
+                (!isPlayer1Turn && OnCollision(isPlayer1Turn, p_bullet, player1, water, trueDeltaTime, window, velocity, clock, direction))) {
+                colided = true;
+                p_bullet = nullptr;
+                isPlayer1Turn = !isPlayer1Turn;
+                TestGameOver(player1, player2, isGameOver);
+                direction = RandomWind();
+                Wind wind = WindDirection(direction, view);
+            }
         }
 
         if (isGameOver)
@@ -124,12 +128,6 @@ void Gamefunction(bool& quit, bool& restart, sf::RenderWindow& window) {
                 quit = true;
                 break;
 
-            case sf::Event::KeyPressed:
-				if (event.key.code == sf::Keyboard::Space)
-				{
-
-				}
-                break;
 
             case sf::Event::KeyReleased:
                 if (event.key.code == sf::Keyboard::Space && !cameraIsMoving && !isGameOver)
@@ -155,7 +153,7 @@ void Gamefunction(bool& quit, bool& restart, sf::RenderWindow& window) {
                         angleCanon = canon2.base.getRotation() + 180.f;
                     }
                     std::cout << angleCanon << '\n';
-                    angleCanon = angleCanon *(3.1415f * 2.f)/360.f;
+                    angleCanon = angleCanon * (3.1415f * 2.f) / 360.f;
                     velocity = sf::Vector2f(cos(angleCanon), sin(angleCanon)) * 800.f;
                 }
                 if (event.key.code == sf::Keyboard::R && isGameOver)
@@ -166,7 +164,8 @@ void Gamefunction(bool& quit, bool& restart, sf::RenderWindow& window) {
             default: break;
             }
         }
-        if(sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && !isGameOver)
+
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && !isGameOver)
         {
             if (isPlayer1Turn)
             {
