@@ -93,14 +93,11 @@ void Gamefunction(bool& quit, bool& restart, sf::RenderWindow& window) {
 
     sf::Font font;
     font.loadFromFile(getAssetsPath() + "\\arial.ttf");
-
-    Wind wind = WindDirection(font);
     GameOverTxt gameOvertxts = CreateGameOver();
     gameOvertxts.GameOver.setFont(font);
     gameOvertxts.Replay.setFont(font);
     gameOvertxts.PlayerName.setFont(font);
-
-
+    std::string direction = RandomWind();
     //Game loop
     while (window.isOpen() && !restart) {
         sf::Event event;
@@ -110,6 +107,9 @@ void Gamefunction(bool& quit, bool& restart, sf::RenderWindow& window) {
 
         StartingPhase(turn);
         
+        Wind wind = WindDirection(direction, view);
+        wind.windText.setFont(font);
+
         MovingCam(window, view, CameraPos, target, deltaTime, cameraIsMoving);
 
         if (!colided && asShoot)
@@ -140,12 +140,6 @@ void Gamefunction(bool& quit, bool& restart, sf::RenderWindow& window) {
                 quit = true;
                 break;
 
-            case sf::Event::KeyPressed:
-				if (event.key.code == sf::Keyboard::Space)
-				{
-
-				}
-                break;
 
             case sf::Event::KeyReleased:
                 if (event.key.code == sf::Keyboard::Space && !cameraIsMoving && !isGameOver && CheckActionPhase(turn))
@@ -172,7 +166,7 @@ void Gamefunction(bool& quit, bool& restart, sf::RenderWindow& window) {
                         angleCanon = canon2.base.getRotation() + 180.f;
                     }
                     std::cout << angleCanon << '\n';
-                    angleCanon = angleCanon *(3.1415f * 2.f)/360.f;
+                    angleCanon = angleCanon * (3.1415f * 2.f) / 360.f;
                     velocity = sf::Vector2f(cos(angleCanon), sin(angleCanon)) * 800.f;
                 }
                 if (event.key.code == sf::Keyboard::R && isGameOver)

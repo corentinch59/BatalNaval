@@ -79,9 +79,9 @@ void WavesDrawing(std::list<sf::CircleShape>& wavesEffect, std::list<sf::CircleS
 Uwater CreateWater() 
 {
 	Uwater water;
-	sf::RectangleShape New(sf::Vector2f(1950.0f, 100.0f));
+	sf::RectangleShape New(sf::Vector2f(4950.0f, 100.0f));
 	water.water = New;
-	water.water.setPosition(0.f, 520.f);
+	water.water.setPosition(-1000.f, 520.f);
 	water.water.setFillColor(waterColor);
 	return water;
 	
@@ -119,23 +119,51 @@ void DrawGameOver(GameOverTxt txt, sf::RenderWindow& window) {
 	window.draw(txt.PlayerName);
 }
 
-Wind WindDirection(sf::Font arial)
+Wind WindDirection(std::string direction, sf::View view)
 {
 	Wind wind;
-	sf::RectangleShape newBody(sf::Vector2f(25.0f, 50.0f));
-	wind.arrowBody = newBody;
-	wind.arrowBody.setFillColor(sf::Color::Red);
-	sf::CircleShape newArrow(30, 3);
-	wind.arrowDirection = newArrow;
-	wind.arrowDirection.setFillColor(sf::Color::Red);
-	wind.arrowBody.setPosition(50, 50);
-	wind.arrowDirection.setPosition(wind.arrowBody.getPosition().x - 18, wind.arrowBody.getPosition().y - 22);
+	//sf::RectangleShape newBody(sf::Vector2f(25.0f, 50.0f));
+	//wind.arrowBody = newBody;
+	//wind.arrowBody.setFillColor(sf::Color::Red);
+	//sf::CircleShape newArrow(30, 3);
+	//wind.arrowDirection = newArrow;
+	//wind.arrowDirection.setFillColor(sf::Color::Red);
+	//wind.arrowBody.setPosition(50, 50);
+	//wind.arrowDirection.setPosition(wind.arrowBody.getPosition().x - 18, wind.arrowBody.getPosition().y - 22);
+	wind.windText.setString(direction);
+	wind.windText.setScale(1.8, 1.8);
+	wind.windText.setPosition(view.getCenter() - sf::Vector2f(340, 250));
+	wind.windText.setFillColor(sf::Color::Red);
 	return wind;
 }
 
 void drawWind(Wind& wind, sf::RenderWindow& window)
 {
-	window.draw(wind.arrowBody);
-	window.draw(wind.arrowDirection);
-	//window.draw(wind.windText);
+	//window.draw(wind.arrowBody);
+	//window.draw(wind.arrowDirection);
+	window.draw(wind.windText);
+}
+
+std::string RandomWind() 
+{
+	std::string direction = "";
+	int number = rand() % 4 + 1;
+	if (number == 1)
+	{
+		direction = "N";
+	}
+	else if (number == 2)
+	{
+		direction = "E";
+	}
+	else if (number == 3)
+	{
+		direction = "W";
+	}
+	else if (number == 4)
+	{
+		direction = "S";
+	}
+	
+	return direction;
 }
