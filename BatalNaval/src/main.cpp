@@ -1,6 +1,5 @@
 #include <iostream>
 #include <SFML/Graphics.hpp>
-#include "Math.h"
 #include "Camera.h"
 #include "Graphismes.h"
 #include "Bullet.h"

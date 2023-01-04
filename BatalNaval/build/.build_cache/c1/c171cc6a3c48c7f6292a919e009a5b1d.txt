@@ -1,0 +1,5 @@
+{
+    outdata = "__cpp_Bullet.cpp.cpp\
+src\\Bullet.cpp(11): warning C4804: '<': unsafe use of type 'bool' in operation\
+"
+}

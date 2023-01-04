@@ -1,0 +1,159 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="debug|Win32">
+      <Configuration>debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="release|Win32">
+      <Configuration>release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{389C11DB-7E55-494C-9342-BB8CB7CA4620}</ProjectGuid>
+    <RootNamespace>BatalNaval</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0.22000.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <PlatformToolset>v143</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <PlatformToolset>v143</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='debug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='debug|Win32'">
+    <OutDir>..\..\build\windows\x86\debug\</OutDir>
+    <IntDir>..\..\build\.objs\BatalNaval\windows\x86\debug\</IntDir>
+    <TargetName>BatalNaval</TargetName>
+    <TargetExt>.exe</TargetExt>
+    <LinkIncremental>true</LinkIncremental>
+    <ExternalIncludePath>C:\Users\tinti\AppData\Local\.xmake\packages\s\sfml\2.5.1\9affc1837b5a4c54bad1dacb6d0c8da3\include;;;</ExternalIncludePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='release|Win32'">
+    <OutDir>..\..\build\windows\x86\release\</OutDir>
+    <IntDir>..\..\build\.objs\BatalNaval\windows\x86\release\</IntDir>
+    <TargetName>BatalNaval</TargetName>
+    <TargetExt>.exe</TargetExt>
+    <LinkIncremental>true</LinkIncremental>
+    <ExternalIncludePath>C:\Users\tinti\AppData\Local\.xmake\packages\s\sfml\2.5.1\9affc1837b5a4c54bad1dacb6d0c8da3\include;;;</ExternalIncludePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='debug|Win32'" Label="Debugger">
+    <LocalDebuggerWorkingDirectory>..\..\build\windows\x86\debug</LocalDebuggerWorkingDirectory>
+    <LocalDebuggerEnvironment>PATH=C:\Users\tinti\AppData\Local\.xmake\packages\s\sfml\2.5.1\9affc1837b5a4c54bad1dacb6d0c8da3\lib;C:\Users\tinti\AppData\Local\.xmake\packages\s\sfml\2.5.1\9affc1837b5a4c54bad1dacb6d0c8da3\bin;C:\Users\tinti\AppData\Local\.xmake\packages\c\cmake\3.24.2\116af62207e241d1b5a204a9bae22dd2\bin;$([System.Environment]::GetEnvironmentVariable('PATH'));%(LocalDebuggerEnvironment)</LocalDebuggerEnvironment>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='release|Win32'" Label="Debugger">
+    <LocalDebuggerWorkingDirectory>..\..\build\windows\x86\release</LocalDebuggerWorkingDirectory>
+    <LocalDebuggerEnvironment>PATH=C:\Users\tinti\AppData\Local\.xmake\packages\s\sfml\2.5.1\9affc1837b5a4c54bad1dacb6d0c8da3\lib;C:\Users\tinti\AppData\Local\.xmake\packages\s\sfml\2.5.1\9affc1837b5a4c54bad1dacb6d0c8da3\bin;C:\Users\tinti\AppData\Local\.xmake\packages\c\cmake\3.24.2\116af62207e241d1b5a204a9bae22dd2\bin;$([System.Environment]::GetEnvironmentVariable('PATH'));%(LocalDebuggerEnvironment)</LocalDebuggerEnvironment>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='debug|Win32'">
+    <Link>
+      <AdditionalLibraryDirectories>C:\Users\tinti\AppData\Local\.xmake\packages\s\sfml\2.5.1\9affc1837b5a4c54bad1dacb6d0c8da3\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>flac.lib;freetype.lib;ogg.lib;openal32.lib;sfml-audio-s.lib;sfml-graphics-s.lib;sfml-main.lib;sfml-network-s.lib;sfml-system-s.lib;sfml-window-s.lib;vorbis.lib;vorbisenc.lib;vorbisfile.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalOptions>-dynamicbase -nxcompat %(AdditionalOptions)</AdditionalOptions>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Console</SubSystem>
+      <TargetMachine>MachineX86</TargetMachine>
+    </Link>
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <WarningLevel>TurnOffAllWarnings</WarningLevel>
+      <ExternalWarningLevel>TurnOffAllWarnings</ExternalWarningLevel>
+      <ExternalTemplatesDiagnostics>false</ExternalTemplatesDiagnostics>
+      <PreprocessorDefinitions>SFML_STATIC;__config_debug__;__config_Win32__;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <MinimalRebuild>false</MinimalRebuild>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <AdditionalIncludeDirectories>..\..\headers</AdditionalIncludeDirectories>
+      <AdditionalOptions>/EHsc -FS %(AdditionalOptions)</AdditionalOptions>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>SFML_STATIC;__config_debug__;__config_Win32__;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\..\headers</AdditionalIncludeDirectories>
+    </ResourceCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='release|Win32'">
+    <Link>
+      <AdditionalLibraryDirectories>C:\Users\tinti\AppData\Local\.xmake\packages\s\sfml\2.5.1\9affc1837b5a4c54bad1dacb6d0c8da3\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>flac.lib;freetype.lib;ogg.lib;openal32.lib;sfml-audio-s.lib;sfml-graphics-s.lib;sfml-main.lib;sfml-network-s.lib;sfml-system-s.lib;sfml-window-s.lib;vorbis.lib;vorbisenc.lib;vorbisfile.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalOptions>-dynamicbase -nxcompat /opt:ref /opt:icf %(AdditionalOptions)</AdditionalOptions>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+      <SubSystem>Console</SubSystem>
+      <TargetMachine>MachineX86</TargetMachine>
+    </Link>
+    <ClCompile>
+      <Optimization>Full</Optimization>
+      <FloatingPointModel>Fast</FloatingPointModel>
+      <WarningLevel>TurnOffAllWarnings</WarningLevel>
+      <ExternalWarningLevel>TurnOffAllWarnings</ExternalWarningLevel>
+      <ExternalTemplatesDiagnostics>false</ExternalTemplatesDiagnostics>
+      <PreprocessorDefinitions>SFML_STATIC;NDEBUG;__config_release__;__config_Win32__;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <DebugInformationFormat>None</DebugInformationFormat>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <MinimalRebuild>false</MinimalRebuild>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <AdditionalIncludeDirectories>..\..\headers</AdditionalIncludeDirectories>
+      <AdditionalOptions>/EHsc %(AdditionalOptions)</AdditionalOptions>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>SFML_STATIC;NDEBUG;__config_release__;__config_Win32__;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\..\headers</AdditionalIncludeDirectories>
+    </ResourceCompile>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\src\GameOver.cpp">
+    </ClCompile>
+    <ClCompile Include="..\..\src\main.cpp">
+    </ClCompile>
+    <ClCompile Include="..\..\src\TurnSystem.cpp">
+    </ClCompile>
+    <ClCompile Include="..\..\src\Math.cpp">
+    </ClCompile>
+    <ClCompile Include="..\..\src\Shader.cpp">
+    </ClCompile>
+    <ClCompile Include="..\..\src\batal.cpp">
+    </ClCompile>
+    <ClCompile Include="..\..\src\Camera.cpp">
+    </ClCompile>
+    <ClCompile Include="..\..\src\Collision.cpp">
+    </ClCompile>
+    <ClCompile Include="..\..\src\Path.cpp">
+    </ClCompile>
+    <ClCompile Include="..\..\src\Bullet.cpp">
+    </ClCompile>
+    <ClCompile Include="..\..\src\Graphismes.cpp">
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\headers\batal.h" />
+    <ClInclude Include="..\..\headers\Bullet.h" />
+    <ClInclude Include="..\..\headers\Camera.h" />
+    <ClInclude Include="..\..\headers\Collision.h" />
+    <ClInclude Include="..\..\headers\GameOver.h" />
+    <ClInclude Include="..\..\headers\Graphismes.h" />
+    <ClInclude Include="..\..\headers\Math.h" />
+    <ClInclude Include="..\..\headers\Path.h" />
+    <ClInclude Include="..\..\headers\Shader.h" />
+    <ClInclude Include="..\..\headers\TurnSystem.h" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

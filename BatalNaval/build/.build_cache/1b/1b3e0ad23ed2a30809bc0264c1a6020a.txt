@@ -1,0 +1,5 @@
+{
+    outdata = "__cpp_Path.cpp.cpp\
+src\\Path.cpp(14): warning C4129: 'A': unrecognized character escape sequence\
+"
+}
